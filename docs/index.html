@@ -43,12 +43,7 @@ button{font:inherit;color:inherit}
 #gate.ready .gt-video{opacity:1}
 .gt-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top, rgba(30,20,24,.4), rgba(30,20,24,0) 40%);transition:opacity .6s}
 #gate.open .gt-shade{opacity:0}
-@media (max-width:760px) and (orientation:portrait){
-  #gate{display:flex;flex-direction:column;justify-content:center;gap:20px}
-  .gt-video{position:relative;inset:auto;flex:none;width:128vw;max-width:none;height:72.92vw;margin-left:-14vw}
-  .gt-shade{display:none}
-  html #gate .inner{position:static;transform:none;align-self:center;background:none;border:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding-block:0}
-}
+@media (max-width:760px) and (orientation:portrait){.gt-video{object-position:50% 50%}}
 #gate .inner{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(520px, calc(100% - 32px));display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 24px 18px;background:rgba(249,247,242,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(61,48,40,.12);box-shadow:0 20px 50px rgba(30,20,24,.18)}
 #gate.known .inner{display:none}
 #gate .brand{display:flex;align-items:center;gap:12px}
@@ -72,7 +67,7 @@ button{font:inherit;color:inherit}
 #gate .no-msg{color:var(--tuff-hi);min-height:0}
 #gate .no-msg:empty{display:none}
 #gate .fine{font-size:12px;color:#7A7067;margin-top:2px}
-@media (max-width:760px){#gate .inner{padding:18px 16px 14px;gap:10px}#gate p:not(.fine):not(.no-msg){display:none}#gate .gate-btns .btn{flex:1;min-height:48px;padding:0 18px}#gate .gate-btns{width:100%;flex-wrap:nowrap}}
+@media (max-width:760px){#gate .inner{padding:14px 14px 10px;gap:8px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}#gate h1{font-size:24px}#gate .brand img{width:34px}#gate .q{font-size:20px;margin-top:0}#gate p:not(.fine):not(.no-msg){display:none}#gate .gate-btns .btn{flex:1;min-height:48px;padding:0 18px}#gate .gate-btns{width:100%;flex-wrap:nowrap}}
 
 /* ---------- header ---------- */
 header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s, border-color .4s;border-bottom:1px solid transparent}
@@ -418,7 +413,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
 
 <!-- age gate & curtain -->
 <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-  <video class="gt-video" id="gt-video" muted playsinline preload="auto" poster="gate-poster.jpg" aria-hidden="true" tabindex="-1"><source src="gate.mp4" type="video/mp4"></video>
+  <video class="gt-video" id="gt-video" muted playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
   <div class="gt-shade"></div>
   <div class="inner">
     <div class="brand"><img src="logo.png" alt="" width="108" height="110"><h1 id="gate-title">Սիս Ալկո</h1></div>
@@ -1357,8 +1352,12 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   /* entrance after the gate */
   /* the gate must be on screen before it can open */
   var gateEl = document.getElementById('gate'), vid = document.getElementById('gt-video');
+  /* two films: an upright one for phones held upright, a wide one for everything else */
+  var tall = window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
+  var film = tall ? { src: 'gate-m.mp4', poster: 'gate-m-poster.jpg', end: 4.15 } : { src: 'gate.mp4', poster: 'gate-poster.jpg', end: 4.3 };
+  if (vid) { vid.poster = film.poster; vid.src = film.src; }
   var gateReady = new Promise(function(res){
-    var im = new Image(); im.onload = im.onerror = res; im.src = 'gate-poster.jpg'; setTimeout(res, 4000);
+    var im = new Image(); im.onload = im.onerror = res; im.src = film.poster; setTimeout(res, 4000);
   }).then(function(){ gateEl.classList.add('ready'); });
   function enter(){ gateReady.then(function(){ setTimeout(enterNow, gateEl.classList.contains('known') ? 700 : 0); }); }
   function enterNow(){
@@ -1375,10 +1374,9 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
     if (reduce || !vid || !vid.play) { finish(true); return; }
     var inner = gateEl.querySelector('.inner'); inner.style.transition = 'opacity .4s'; inner.style.opacity = '0';
     gateEl.classList.add('open');
-    vid.addEventListener('timeupdate', function(){ if (vid.currentTime >= 4.3) finish(); });
+    vid.addEventListener('timeupdate', function(){ if (vid.currentTime >= film.end) finish(); });
     vid.addEventListener('ended', function(){ finish(); });
     vid.addEventListener('error', function(){ finish(); });
-    var src = vid.querySelector('source'); if (src) src.addEventListener('error', function(){ finish(); });
     setTimeout(function(){ if (vid.currentTime < 0.05) finish(); }, 4000);   /* never started: no film, just walk in */
     setTimeout(function(){ finish(); }, 11000);
     setTimeout(function(){

@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")/.."
 rm -rf docs && mkdir docs
-cp -r web/logo.png web/gate.mp4 web/gate-poster.jpg web/ph web/tex docs/
+cp -r web/logo.png web/gate.mp4 web/gate-poster.jpg web/gate-m.mp4 web/gate-m-poster.jpg web/ph web/tex docs/
 touch docs/.nojekyll
 {
   printf '<!doctype html>\n<html lang="hy"><head><meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<style>:root{color-scheme:dark}body{margin:0;font:14px system-ui}img{max-width:100%%}[hidden]{display:none!important}</style>\n'
