@@ -1354,7 +1354,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   var gateEl = document.getElementById('gate'), vid = document.getElementById('gt-video');
   /* two films: an upright one for phones held upright, a wide one for everything else */
   var tall = window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
-  var film = tall ? { src: 'gate-m.mp4', poster: 'gate-m-poster.jpg', end: 4.15 } : { src: 'gate.mp4', poster: 'gate-poster.jpg', end: 4.3 };
+  var film = tall ? { src: 'gate-m.mp4', poster: 'gate-m-poster.jpg', end: 4.15, from: 0.5, rate: 1.4 } : { src: 'gate.mp4', poster: 'gate-poster.jpg', end: 4.3, from: 0.4, rate: 1.4 };
   if (vid) { vid.poster = film.poster; vid.src = film.src; }
   var gateReady = new Promise(function(res){
     var im = new Image(); im.onload = im.onerror = res; im.src = film.poster; setTimeout(res, 4000);
@@ -1380,7 +1380,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
     setTimeout(function(){ if (vid.currentTime < 0.05) finish(); }, 4000);   /* never started: no film, just walk in */
     setTimeout(function(){ finish(); }, 11000);
     setTimeout(function(){
-      try { vid.currentTime = 0; var p = vid.play(); if (p && p.catch) p.catch(function(){ finish(); }); } catch (e) { finish(); }
+      try { vid.currentTime = film.from; vid.defaultPlaybackRate = vid.playbackRate = film.rate; var p = vid.play(); if (p && p.catch) p.catch(function(){ finish(); }); } catch (e) { finish(); }
     }, 350);
   }
 
