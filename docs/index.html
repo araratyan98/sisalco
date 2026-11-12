@@ -63,6 +63,8 @@ nav.main a:hover{color:var(--fg)}
 nav.main .lang{color:#7F8B82}
 nav.main .lang b{color:var(--fg);font-weight:500}
 header.top.light.solid{background:rgba(236,238,232,.5)}
+.m header.top.solid{background:rgba(12,17,14,.92)}
+.m header.top.light.solid{background:rgba(236,238,232,.94)}
 header.top.light .logo, header.top.light nav.main a, header.top.light nav.main .lang b{color:var(--stone-ink)}
 header.top.light nav.main .lang{color:var(--stone-muted)}
 header.top.light .logo svg{stroke:var(--stone-ink)}
@@ -130,13 +132,14 @@ html.m{scroll-snap-type:y proximity}
 .m-stage{flex:1;position:relative;min-height:0}
 .m-hint{position:absolute;left:0;right:0;bottom:4px;margin:0;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;color:#B9C0B6;transition:opacity .6s}
 .m-hint.off{opacity:0}
-.m-sheet{padding-block:22px calc(74px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom, rgba(10,14,12,0), rgba(10,14,12,.8) 26%)}
+.m .m-hint{display:none}
+.m-sheet{padding-block:6px calc(74px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom, rgba(10,14,12,0), rgba(10,14,12,.8) 26%)}
 .m-tabs{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(237,230,216,.16)}
 .m-tabs::-webkit-scrollbar{display:none}
 .m-tabs button{flex:none;background:none;border:none;border-bottom:1px solid transparent;margin-bottom:-1px;padding:12px 0;min-height:46px;font-size:15px;color:#A3AEA4;cursor:pointer;transition:color .3s,border-color .3s}
 .m-tabs button.on{color:var(--fg);border-bottom-color:var(--tuff)}
-.m-kind{margin:18px 0 4px;font-size:14px;color:var(--tuff-hi)}
-#m-title{margin:0;min-height:2.1em;display:flex;align-items:flex-end;font-family:var(--serif);font-weight:500;font-size:clamp(32px, 10vw, 44px);line-height:1.05;letter-spacing:-.03em}
+.m-kind{margin:14px 0 4px;font-size:14px;color:var(--tuff-hi)}
+#m-title{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(30px, 8.8vw, 40px);line-height:1.05;letter-spacing:-.03em}
 .m-meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:10px;font-size:15px;color:#B9C0B6;font-variant-numeric:tabular-nums}
 .m-prog{display:flex;gap:3px;margin-top:14px}
 .m-prog i{flex:1;height:2px;background:rgba(237,230,216,.2);transition:background .3s}
@@ -198,11 +201,11 @@ header.top.light .lang button.on{color:var(--stone-ink)}
 .p-nav{display:flex;justify-content:space-between;gap:16px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(237,230,216,.14);font-size:15px}
 .p-nav a{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#C9D0C8;text-decoration:none}
 .p-nav a:hover{color:var(--fg)}
-.m .p-drag{width:100%;height:46svh}
-.m .p-hint{width:100%;bottom:auto;top:calc(46svh + 4px)}
+.m .p-drag{position:absolute;width:100%;height:46svh}
+.m .p-hint{position:absolute;width:100%;bottom:auto;top:calc(46svh - 14px)}
 .m .hero-foot{padding-bottom:84px}
 .m #product-view{padding-block:46svh 110px}
-.m .p-wrap{background:linear-gradient(to bottom, rgba(10,14,12,0), rgba(10,14,12,.82) 70px);padding-top:56px}
+.m .p-wrap{padding-top:28px}
 .m .p-panel{max-width:none}
 
 /* ---------- opening: the page starts on the bottles; everything else waits for the line-up to finish ---------- */
@@ -1585,9 +1588,19 @@ SA.resize = resize;
 let mx = 0, my = 0, smx = 0, smy = 0;
 addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') { mx = (e.clientX / innerWidth) * 2 - 1; my = (e.clientY / innerHeight) * 2 - 1; } }, { passive: true });
 
+const HMAX = Math.max(...Object.values(PROF).map((p) => p.h));
+const mStageEl = document.querySelector('.m-stage'), pDragEl = document.getElementById('p-drag');
+/* phones: the bottle fills a real zone of the page (px from the top of the screen), so nothing ever sits on top of it */
+const mShowEl = document.getElementById('m-show');
+function fit(top, bot, live) {
+  const H = innerHeight, hpx = Math.max(80, bot - top);
+  return { x: 0, cy: (0.5 - (top + bot) / 2 / H) * view.h, s: Math.min(hpx / H * view.h / HMAX, view.w * 0.9 / 1.6), live };
+}
 function layout() {
   const ch = SA.chapter, s = small();
   if (!SA.entered) return { x: 0, cy: -6, s: s ? 0.72 : 1 };
+  if (s && SA.prod && pDragEl) { const r = pDragEl.getBoundingClientRect(); return fit(r.top + 70, r.bottom - 30, true); }
+  if (s && mStageEl && mStageEl.offsetHeight) { const r = mStageEl.getBoundingClientRect(), o = mShowEl.getBoundingClientRect().top; return fit(r.top - o + 70, r.bottom - o - 6, false); }
   if (SA.prod) return s ? { x: 0, cy: 1.0, s: 0.5 } : { x: -view.w * 0.21, cy: -0.02, s: 1.02 };
   if (ch === 0) return { x: 0, cy: s ? 0.32 : 0.06, s: s ? 0.7 : 1.04 };
   if (s) return { x: 0, cy: 0.95, s: 0.52 };
@@ -1599,7 +1612,7 @@ resize();
 if (SA.entered) SA.onEnter();
 if (SA.chapter) SA.onChapter(SA.chapter);
 
-const bandEl = document.getElementById('band'), mShowEl = document.getElementById('m-show');
+const bandEl = document.getElementById('band');
 const chEls = [document.getElementById('hero'), ...[1, 2, 3, 4].map((i) => document.getElementById('ch-' + i))];
 const clock = new THREE.Clock();
 
@@ -1674,7 +1687,7 @@ function frame() {
   } else if (word.text) cur.wA = mix(cur.wA, 1, kS * 2);
   if (word.t < 1 && word.text && !wordNext) { word.t = Math.min(1, word.t + dt / 1.5); drawWord(); }
   const el = (SA.mobile && SA.chapter ? mShowEl : chEls[SA.chapter]) || chEls[0], r = el.getBoundingClientRect();
-  if (SA.prod) U.uOff.value.set(0, 0);
+  if (SA.prod) U.uOff.value.set(0, small() ? scrollY / innerHeight : 0);
   else if (chap.hero) U.uOff.value.set(0, scrollY / innerHeight);
   else { const c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; U.uOff.value.set(c * 0.12, -c * 0.55); }
 
@@ -1690,7 +1703,7 @@ function frame() {
   /* placement */
   const lay = layout();
   smx = mix(smx, mx, kS); smy = mix(smy, my, kS);
-  cur.x = mix(cur.x, lay.x, kS); cur.y = mix(cur.y, lay.cy, kS * 0.8); cur.s = mix(cur.s, lay.s, kS);
+  cur.x = mix(cur.x, lay.x, kS); cur.y = lay.live ? lay.cy : mix(cur.y, lay.cy, kS * 0.8); cur.s = mix(cur.s, lay.s, kS);
   const float = SA.reduce ? 0 : Math.sin(t * 0.8) * 0.03;
   bottle.position.set(cur.x, 1.6 + cur.y - cur.h / 2 * cur.s + float, 0);
   bottle.scale.setScalar(cur.s);
