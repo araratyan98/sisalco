@@ -1,0 +1,1713 @@
+<title>Սիս Ալկո</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;500;600&family=Noto+Serif+Armenian:wght@400;500;600&family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@400;500;600&display=swap">
+<style>
+/* Layout: a fixed studio-lit 3D stage carries one real-glass bottle through a four-chapter scroll story; giant words sit behind the glass and bend through it. Solid tuff, stone and green bands follow. */
+:root{
+  --bg:#18211C;          /* bottle-green ground */
+  --fg:#EDE6D8;          /* label paper */
+  --muted:#A3AEA4;
+  --line:#34433A;
+  --tuff:#C4836C;        /* Armenian tuff stone */
+  --tuff-hi:#DDA088;
+  --stone:#E4E6E0;
+  --stone-ink:#1C2620;
+  --stone-muted:#4E5B52;
+  --stone-line:#B4BBB2;
+  --serif:'Noto Serif Armenian', 'Noto Serif', 'Times New Roman', serif;
+  --sans:'Noto Sans Armenian', 'Noto Sans', system-ui, sans-serif;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:var(--tuff-hi)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--tuff-hi);outline-offset:3px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(40px, env(safe-area-inset-left,0px));padding-right:max(40px, env(safe-area-inset-right,0px))}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- age gate / curtain ---------- */
+#gate{position:fixed;inset:0;z-index:100;background:#111815;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px max(16px, env(safe-area-inset-right,0px)) 24px max(16px, env(safe-area-inset-left,0px));clip-path:inset(0 0 0 0)}
+#gate .inner{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:440px}
+#gate .mark path{stroke-dasharray:80;stroke-dashoffset:80;animation:drawmark 1.6s cubic-bezier(.45,0,.2,1) .2s forwards}
+@keyframes drawmark{to{stroke-dashoffset:0}}
+#gate h1{margin:0;font-family:var(--serif);font-weight:500;font-size:44px;letter-spacing:-.02em;line-height:1.1}
+#gate p{margin:0;color:var(--muted)}
+#gate .q{font-family:var(--serif);font-size:24px;color:var(--fg);margin-top:8px}
+.gate-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:2px;font-family:var(--sans);font-weight:500;font-size:16px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .25s,color .25s,border-color .25s}
+.btn-fill{background:var(--tuff);color:var(--stone-ink);border-color:var(--tuff)}
+.btn-fill:hover{background:var(--tuff-hi);border-color:var(--tuff-hi)}
+.btn-ghost{background:transparent;color:var(--fg);border-color:#4C5C52}
+.btn-ghost:hover{border-color:var(--fg)}
+#gate .no-msg{color:var(--tuff-hi);min-height:1.6em}
+#gate .fine{font-size:13px;color:#7F8B82;margin-top:12px}
+
+/* ---------- header ---------- */
+header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s, border-color .4s;border-bottom:1px solid transparent}
+header.top.solid{background:rgba(12,17,14,.5);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--fg);text-decoration:none}
+.logo span{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:-.01em}
+nav.main{display:flex;align-items:center;gap:30px;font-size:15px}
+nav.main a{color:#C9D0C8;text-decoration:none;padding:10px 0}
+nav.main a:hover{color:var(--fg)}
+nav.main .lang{color:#7F8B82}
+nav.main .lang b{color:var(--fg);font-weight:500}
+header.top.light.solid{background:rgba(236,238,232,.5)}
+header.top.light .logo, header.top.light nav.main a, header.top.light nav.main .lang b{color:var(--stone-ink)}
+header.top.light nav.main .lang{color:var(--stone-muted)}
+header.top.light .logo svg{stroke:var(--stone-ink)}
+@media (max-width:760px){nav.main .hide-sm{display:none}}
+
+/* ---------- 3D stage ---------- */
+#stage{position:fixed;inset:0;z-index:0;pointer-events:none}
+#stage canvas{display:block;width:100%;height:100%}
+main, footer{position:relative;z-index:2}
+
+/* ---------- hero ---------- */
+#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-word{display:none;position:absolute;left:0;right:0;top:50%;transform:translateY(-58%);text-align:center;font-family:var(--serif);font-weight:500;font-size:clamp(84px, 21vw, 340px);line-height:.9;letter-spacing:-.045em;color:var(--tuff);white-space:nowrap;pointer-events:none}
+.no-gl .hero-word{display:block}
+.hero-foot{position:relative;width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-block:0 40px}
+.hero-foot p{margin:0;max-width:300px;font-size:17px;color:#D3D9D1}
+.cue{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
+.cue i{position:relative;display:block;width:1px;height:56px;background:#3A4A40;overflow:hidden}
+.cue i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--tuff-hi);animation:cue 2.2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes cue{to{top:100%}}
+
+/* ---------- chapters ---------- */
+.chapter{position:relative;min-height:100vh;display:flex;align-items:center;padding-block:120px}
+.chapter .wrap{width:100%}
+.panel{max-width:520px;display:flex;flex-direction:column}
+@media (min-width:761px){.items .nm{white-space:nowrap}}
+.kind{font-size:15px;color:var(--tuff-hi);margin-bottom:10px}
+.chapter h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(60px, 8.4vw, 124px);line-height:.95;letter-spacing:-.04em}
+.chapter .sub{margin:18px 0 0;font-size:19px;color:#D3D9D1}
+.items{list-style:none;margin:36px 0 0;padding:0;border-top:1px solid rgba(237,230,216,.18)}
+.items li{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 20px;padding:12px 0 12px 0;border-bottom:1px solid rgba(237,230,216,.12);transition:padding .4s cubic-bezier(.2,.7,.1,1)}
+.items li::before{content:"";position:absolute;left:0;top:50%;width:0;height:1px;background:var(--tuff);transition:width .4s cubic-bezier(.2,.7,.1,1)}
+.items li.on{padding-left:36px}
+.items li.on::before{width:24px}
+.items .nm{flex:1 1 180px;background:none;border:none;padding:6px 0;text-align:left;cursor:pointer;font-family:var(--serif);font-size:21px;line-height:1.3;color:#B9C0B6;transition:color .3s}
+.items li.on .nm, .items .nm:hover{color:var(--fg)}
+.items .sp{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ask{background:none;border:none;padding:6px 0;cursor:pointer;color:var(--tuff-hi);font-size:15px;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;min-height:36px}
+.ask:hover{color:var(--fg)}
+.hint{margin:16px 0 0;font-size:14px;color:#8B968C}
+.no-gl .hint{display:none}
+.fallback-bottle{display:none}
+.no-gl .fallback-bottle{display:block;margin-bottom:20px}
+@media (max-width:760px){
+  .chapter{align-items:flex-end;padding-block:46vh 56px}
+  .items .nm{flex:1 1 100%}
+  .panel{padding:22px 18px;background:rgba(15,20,17,.74);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:4px}
+  .chapter h2{font-size:clamp(46px, 14vw, 72px)}
+  .items{margin-top:22px}
+}
+
+/* ---------- phone: one bottle per screen, swipe to browse ---------- */
+#m-show{display:none}
+.menu-btn{display:none}
+#menu{position:fixed;inset:0;z-index:70;background:#111815;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:calc(72px + env(safe-area-inset-top,0px)) max(24px, env(safe-area-inset-right,0px)) calc(32px + env(safe-area-inset-bottom,0px)) max(24px, env(safe-area-inset-left,0px))}
+#menu a{font-family:var(--serif);font-size:clamp(34px, 10vw, 44px);line-height:1.2;letter-spacing:-.02em;color:var(--fg);text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(237,230,216,.12)}
+#menu .m-contact{margin-top:28px;color:var(--muted);font-size:16px;line-height:1.8;user-select:all}
+#menu-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px, env(safe-area-inset-right,0px))}
+.m .chapter{display:none}
+#menu-close{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;background:none;border:none;font-size:16px;color:var(--fg);cursor:pointer}
+.m header.top.light .menu-btn{color:var(--stone-ink)}
+html.m{scroll-snap-type:y proximity}
+.m #hero, .m #m-show, .m #band{scroll-snap-align:start;scroll-snap-stop:normal}
+.m #m-show{position:relative;overflow:hidden;display:flex;flex-direction:column;height:100svh;min-height:580px;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.m-stage{flex:1;position:relative;min-height:0}
+.m-hint{position:absolute;left:0;right:0;bottom:4px;margin:0;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;color:#B9C0B6;transition:opacity .6s}
+.m-hint.off{opacity:0}
+.m-sheet{padding-block:22px calc(74px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom, rgba(10,14,12,0), rgba(10,14,12,.8) 26%)}
+.m-tabs{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(237,230,216,.16)}
+.m-tabs::-webkit-scrollbar{display:none}
+.m-tabs button{flex:none;background:none;border:none;border-bottom:1px solid transparent;margin-bottom:-1px;padding:12px 0;min-height:46px;font-size:15px;color:#A3AEA4;cursor:pointer;transition:color .3s,border-color .3s}
+.m-tabs button.on{color:var(--fg);border-bottom-color:var(--tuff)}
+.m-kind{margin:18px 0 4px;font-size:14px;color:var(--tuff-hi)}
+#m-title{margin:0;min-height:2.1em;display:flex;align-items:flex-end;font-family:var(--serif);font-weight:500;font-size:clamp(32px, 10vw, 44px);line-height:1.05;letter-spacing:-.03em}
+.m-meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:10px;font-size:15px;color:#B9C0B6;font-variant-numeric:tabular-nums}
+.m-prog{display:flex;gap:3px;margin-top:14px}
+.m-prog i{flex:1;height:2px;background:rgba(237,230,216,.2);transition:background .3s}
+.m-prog i.g{margin-left:7px}
+.m-prog i.on{background:var(--tuff)}
+.m-actions{display:flex;gap:10px;margin-top:18px}
+.m-actions .btn{flex:1;padding:0 12px}
+.m-nav{flex:none;width:52px;height:52px;border:1px solid #56655B;border-radius:2px;background:rgba(10,14,12,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg)}
+.m-nav:active{background:rgba(237,230,216,.12)}
+
+/* ---------- language, logo ---------- */
+.logo img{display:block;height:34px;width:auto}
+.lang{display:inline-flex;align-items:center;gap:2px}
+.lang button{background:none;border:none;padding:10px 6px;min-height:40px;font-size:14px;color:#8B968C;cursor:pointer}
+.lang button.on{color:var(--fg)}
+header.top.light .lang button{color:var(--stone-muted)}
+header.top.light .lang button.on{color:var(--stone-ink)}
+.more{align-self:flex-start;margin-top:14px;font-size:15px;color:var(--tuff-hi);text-underline-offset:4px}
+.more:hover{color:var(--fg)}
+
+/* ---------- ask sheet ---------- */
+#ask{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:rgba(8,11,9,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px max(16px, env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px))}
+.ask-box{position:relative;width:100%;max-width:460px;background:#151D19;border:1px solid var(--line);border-radius:4px;padding:32px 28px 28px}
+.ask-box h2{margin:6px 0 22px;font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.2;letter-spacing:-.01em;padding-right:64px}
+.ask-box .kind{margin:0}
+.ask-opts{display:grid;gap:10px}
+.ask-opts .btn{width:100%}
+.ask-x{position:absolute;top:14px;right:14px;background:none;border:none;min-height:44px;padding:0 10px;font-size:15px;color:var(--muted);cursor:pointer}
+.ask-x:hover{color:var(--fg)}
+.ask-tel{margin:18px 0 0;text-align:center;color:var(--muted);font-size:15px;user-select:all}
+@media (max-width:760px){#ask{align-items:flex-end;padding-left:0;padding-right:0;padding-bottom:0}.ask-box{max-width:none;border-radius:8px 8px 0 0;border-bottom:none;padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}}
+.msgr{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px;max-width:760px;margin:28px auto 0}
+.msgr a{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 10px;border:1px solid var(--stone-ink);border-radius:2px;color:var(--stone-ink);text-decoration:none;font-weight:500;font-size:15px;transition:background .2s,color .2s}
+.msgr a:hover{background:var(--stone-ink);color:var(--stone)}
+.done pre{margin:0 0 20px;padding:16px;background:#F3F4F0;border:1px solid var(--stone-line);border-radius:2px;font:400 15px/1.6 var(--sans);white-space:pre-wrap;word-break:break-word;user-select:all}
+.done .row{display:flex;flex-wrap:wrap;gap:10px}
+.done a.btn{text-decoration:none}
+
+/* ---------- product page ---------- */
+#product-view{position:relative;z-index:2;min-height:100svh;padding-block:calc(104px + env(safe-area-inset-top,0px)) 80px}
+.p-drag{position:fixed;left:0;top:0;width:50%;height:100%;cursor:grab;touch-action:pan-y}
+.p-drag:active{cursor:grabbing}
+.p-hint{position:fixed;left:0;width:50%;bottom:28px;margin:0;text-align:center;font-size:13px;color:#B9C0B6;pointer-events:none;transition:opacity .6s}
+.p-hint.off{opacity:0}
+.p-wrap{position:relative;display:flex;justify-content:flex-end;pointer-events:none}
+.p-panel{width:100%;max-width:520px;display:flex;flex-direction:column;pointer-events:auto}
+.p-panel h1{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(40px, 5.2vw, 76px);line-height:1;letter-spacing:-.035em;text-wrap:balance}
+.p-panel .kind{margin:18px 0 10px}
+.p-desc{margin:22px 0 0;font-size:18px;color:#D3D9D1;max-width:480px}
+.p-facts{margin:32px 0 0;border-top:1px solid rgba(237,230,216,.2)}
+.p-facts div{display:flex;justify-content:space-between;gap:24px;padding:13px 0;border-bottom:1px solid rgba(237,230,216,.12)}
+.p-facts dt{color:var(--muted);font-size:15px}
+.p-facts dd{margin:0;text-align:right;font-size:16px;font-variant-numeric:tabular-nums}
+.p-serve{margin:28px 0 0;display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:8px 28px}
+.p-serve dt{font-size:14px;color:var(--tuff-hi)}
+.p-serve dd{margin:6px 0 0;font-family:var(--serif);font-size:19px;line-height:1.35}
+.p-note{grid-column:1 / -1;margin:8px 0 0;font-size:13px;color:#8B968C}
+.p-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.p-nav{display:flex;justify-content:space-between;gap:16px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(237,230,216,.14);font-size:15px}
+.p-nav a{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#C9D0C8;text-decoration:none}
+.p-nav a:hover{color:var(--fg)}
+.m .p-drag{width:100%;height:46svh}
+.m .p-hint{width:100%;bottom:auto;top:calc(46svh + 4px)}
+.m .hero-foot{padding-bottom:84px}
+.m #product-view{padding-block:46svh 110px}
+.m .p-wrap{background:linear-gradient(to bottom, rgba(10,14,12,0), rgba(10,14,12,.82) 70px);padding-top:56px}
+.m .p-panel{max-width:none}
+
+/* ---------- opening: the page starts on the bottles; everything else waits for the line-up to finish ---------- */
+#hero{display:none}
+header.top{transition:background .4s, border-color .4s, opacity .9s ease}
+.chapter .panel, .m-sheet, #tabbar{transition:opacity .9s ease}
+html.intro header.top, html.intro .chapter .panel, html.intro .m-sheet, html.intro .m-hint, html.intro #rail, html.intro #tabbar{opacity:0;pointer-events:none}
+
+/* chapter rail */
+#rail{position:fixed;right:max(24px, env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:6px;opacity:0;pointer-events:none;transition:opacity .5s}
+#rail.on{opacity:1;pointer-events:auto}
+#rail button{display:flex;align-items:center;justify-content:flex-end;gap:12px;background:none;border:none;cursor:pointer;color:#8B968C;font-size:14px;padding:6px 0;min-height:32px}
+#rail button i{display:block;width:18px;height:1px;background:currentColor;transition:width .4s}
+#rail button.on{color:var(--fg)}
+#rail button.on i{width:40px;background:var(--tuff)}
+@media (max-width:1100px){#rail{display:none}}
+
+/* ---------- band ---------- */
+.band{position:relative;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:40px;overflow:hidden}
+.track{display:flex;width:max-content;animation:slide 50s linear infinite}
+.band:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.track span{display:inline-flex;align-items:center;gap:48px;padding-right:48px;font-family:var(--serif);font-size:clamp(52px, 7vw, 104px);line-height:1.1;letter-spacing:-.025em;white-space:nowrap}
+.track .o{color:transparent;-webkit-text-stroke:1px var(--tuff)}
+
+/* ---------- about + factory (stone, strict) ---------- */
+#about{position:relative;background:var(--stone);color:var(--stone-ink);padding-block:112px}
+.about-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 64px}
+.about-lead{margin:0;font-family:var(--serif);font-size:clamp(20px, 2vw, 26px);line-height:1.4;color:#2E3B33;max-width:440px}
+.gallery{margin-top:48px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.g-item{position:relative;display:block;aspect-ratio:4/5;padding:0;border:none;overflow:hidden;background:#D6D9D2;cursor:pointer;min-width:0}
+.g-item:first-child{grid-row:span 2;aspect-ratio:auto}
+.g-item img{position:absolute;inset:0}
+.g-item img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
+.g-item:hover img{transform:scale(1.045)}
+.g-item .cap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:44px 16px 14px;font-size:15px;color:#fff;text-align:left;background:linear-gradient(to top, rgba(0,0,0,.62), rgba(0,0,0,0))}
+.g-item .cap i{font-style:normal;font-size:13px;opacity:.85;text-decoration:underline;text-underline-offset:3px}
+/* story viewer */
+#story{position:fixed;inset:0;z-index:95;background:rgba(8,11,9,.94);display:flex;align-items:center;justify-content:center;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px))}
+.st-box{width:100%;max-width:1080px;max-height:100%;display:grid;grid-template-columns:minmax(0, 1.05fr) minmax(0, 1fr);background:#151D19;border:1px solid var(--line);overflow:hidden}
+.st-img{background:#0C110E;min-height:0}
+.st-img img{display:block;width:100%;height:100%;max-height:min(84vh, 760px);object-fit:cover}
+.st-txt{position:relative;display:flex;flex-direction:column;padding:56px 44px 32px;min-height:0;overflow-y:auto}
+.st-txt .kind{margin:0 0 10px}
+.st-txt h2{margin:0 0 22px;font-family:var(--serif);font-weight:500;font-size:clamp(30px, 3.4vw, 46px);line-height:1.05;letter-spacing:-.025em}
+.st-txt p.t{margin:0 0 16px;font-size:17px;line-height:1.7;color:#D3D9D1}
+.st-txt p.t:last-of-type{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--fg)}
+.st-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:24px}
+.st-nav .m-nav{width:48px;height:48px}
+.st-nav span{margin-left:auto;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  #story{padding:0;align-items:stretch}
+  .st-box{grid-template-columns:1fr;grid-template-rows:auto 1fr;border:none;max-width:none;overflow-y:auto}
+  .st-img img{height:46svh;max-height:none}
+  .st-txt{padding:28px 20px calc(24px + env(safe-area-inset-bottom,0px));overflow:visible}
+  .st-txt .ask-x{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;background:rgba(10,14,12,.7);color:#fff;border-radius:2px}
+}
+.about-facts{margin:48px 0 0;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));border-top:1px solid var(--stone-ink);border-bottom:1px solid var(--stone-line)}
+.about-facts div{padding:24px 24px 26px;border-left:1px solid var(--stone-line)}
+.about-facts div:first-child{border-left:none;padding-left:0}
+.about-facts dt{font-size:14px;color:var(--stone-muted)}
+.about-facts dd{margin:8px 0 0;font-family:var(--serif);font-weight:500;font-size:clamp(26px, 3.2vw, 46px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.about-values{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 40px;font-family:var(--serif);font-size:19px;color:#2E3B33}
+@media (max-width:760px){
+  #about{padding-block:72px}
+  .gallery{margin:32px calc(-1 * max(16px, env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding:0 16px;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;grid-auto-rows:auto}
+  .gallery::-webkit-scrollbar{display:none}
+  .g-item, .g-item:first-child{flex:0 0 78%;aspect-ratio:4/5;scroll-snap-align:center}
+  .about-facts{grid-template-columns:repeat(2, minmax(0, 1fr));margin-top:32px}
+  .about-facts div{padding:18px 12px 20px 16px}
+  .about-facts div:nth-child(odd){border-left:none;padding-left:0}
+  .about-facts div:nth-child(n+3){border-top:1px solid var(--stone-line)}
+  .about-values{flex-direction:column;gap:6px;font-size:18px;margin-top:22px}
+  #to-catalog{padding-block:64px}
+  #partners{padding-block:80px}
+  .steps{margin-top:40px}
+  .steps ol{gap:0}
+  .steps li{padding:18px 0;border-bottom:1px solid var(--line)}
+  .steps div{font-size:22px}
+  #contact{padding-block:80px}
+}
+
+/* ---------- link to the catalogue ---------- */
+#to-catalog{position:relative;background:var(--bg);padding-block:96px}
+#to-catalog .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px 48px}
+#to-catalog p{margin:0;font-family:var(--serif);font-size:clamp(28px, 3.6vw, 48px);line-height:1.15;letter-spacing:-.02em;max-width:680px}
+
+/* ---------- catalogue page ---------- */
+#catalog-view{position:relative;z-index:2;background:var(--bg);min-height:100svh;padding-block:calc(112px + env(safe-area-inset-top,0px)) 96px}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:15px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--fg)}
+.cat-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.cat-head .lede{margin-top:12px}
+.cat-filters{display:flex;flex-wrap:wrap;gap:0 26px}
+.cat-filters button{background:none;border:none;border-bottom:1px solid transparent;padding:10px 0;min-height:44px;font-size:16px;color:var(--muted);cursor:pointer;transition:color .2s,border-color .2s}
+.cat-filters button:hover{color:var(--fg)}
+.cat-filters button.on{color:var(--fg);border-bottom-color:var(--tuff)}
+.cat-filters button span{font-size:13px;color:#8B968C;margin-left:4px;font-variant-numeric:tabular-nums}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));gap:44px 24px;margin-top:40px}
+.cat-card{min-width:0;display:flex;flex-direction:column}
+.cat-img{position:relative;display:block;width:100%;aspect-ratio:3/4;padding:0;border:none;background:#141B17;cursor:pointer;overflow:hidden}
+.cat-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.cat-img:hover img{transform:scale(1.045)}
+.cat-img svg{position:absolute;inset:0;margin:auto}
+.cat-img .v3d{position:absolute;left:10px;bottom:10px;font-size:12px;color:var(--fg);background:rgba(10,14,12,.6);padding:4px 9px;border-radius:2px}
+.cat-card .k{margin:14px 0 2px;font-size:13px;color:var(--tuff-hi)}
+.cat-card h3{margin:0;font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.25}
+.cat-card .s{margin:4px 0 4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cat-card .more{margin-top:auto;padding-top:8px;min-height:36px}
+.cat-note{margin:56px 0 0;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:15px;max-width:620px}
+.m .cat-grid{grid-template-columns:repeat(2, minmax(0, 1fr));gap:30px 12px;margin-top:28px}
+.m .cat-card h3{font-size:18px}
+.m #catalog-view{padding-block:calc(84px + env(safe-area-inset-top,0px)) 120px}
+nav.main a.cur{color:var(--fg);box-shadow:0 1px 0 var(--tuff)}
+
+/* ---------- phone: bottom navigation ---------- */
+#tabbar{display:none}
+.m #tabbar{display:grid;grid-template-columns:repeat(4, 1fr);position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(12,17,14,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(237,230,216,.12);padding:0 max(4px, env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(4px, env(safe-area-inset-left,0px))}
+#tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:58px;font-size:12px;color:#97A298;text-decoration:none}
+#tabbar a.on{color:var(--fg)}
+#tabbar a.on svg{stroke:var(--tuff-hi)}
+.m footer{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
+
+/* ---------- partners ---------- */
+#partners{position:relative;background:var(--bg);padding-block:128px}
+.h-sec{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(44px, 6vw, 84px);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.lede{margin:18px 0 0;color:var(--muted);font-size:18px}
+.steps{position:relative;margin-top:72px}
+.steps .line{position:absolute;left:0;right:0;top:0;height:1px;background:var(--tuff);transform-origin:0 50%}
+.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr));gap:32px 48px}
+.steps li{padding-top:28px}
+.steps small{font-size:15px;color:var(--tuff-hi)}
+.steps div{margin-top:8px;font-family:var(--serif);font-size:27px;line-height:1.25}
+
+/* ---------- contact (stone, centred and symmetric) ---------- */
+#contact{position:relative;background:var(--stone);color:var(--stone-ink);padding-block:120px}
+#contact :focus-visible{outline-color:#8E4C38}
+.c-head{text-align:center}
+.c-head .lede{color:var(--stone-muted)}
+.c-tiles{margin:56px 0 0;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));border-top:1px solid var(--stone-ink);border-bottom:1px solid var(--stone-line)}
+.c-tiles div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:36px 20px 32px;border-left:1px solid var(--stone-line);min-width:0}
+.c-tiles div:first-child{border-left:none}
+.c-tiles dt{font-size:14px;color:var(--stone-muted)}
+.c-tiles dd{margin:0;font-family:var(--serif);font-size:clamp(19px, 1.9vw, 25px);line-height:1.3;user-select:all;overflow-wrap:anywhere;flex:1;display:flex;align-items:center}
+.copy{background:none;border:1px solid var(--stone-line);border-radius:2px;padding:6px 14px;min-height:36px;font-size:14px;color:var(--stone-ink);cursor:pointer;transition:border-color .2s}
+.copy:hover{border-color:var(--stone-ink)}
+.c-form{max-width:760px;margin:72px auto 0}
+.c-sub{margin:0 0 28px;text-align:center;font-family:var(--serif);font-weight:500;font-size:clamp(24px, 2.6vw, 32px);letter-spacing:-.01em}
+.c-form form > div:last-child{display:flex;justify-content:center}
+.c-form #f-err{text-align:center}
+.c-form .done{text-align:center}
+.c-form .done .row{justify-content:center}
+.c-form .done pre{text-align:left}
+@media (max-width:760px){
+  .c-tiles{grid-template-columns:1fr;margin-top:36px}
+  .c-tiles div{border-left:none;border-top:1px solid var(--stone-line);padding:24px 12px}
+  .c-tiles div:first-child{border-top:none}
+  .c-form{margin-top:48px}
+  .c-form form > div:last-child .btn{width:100%}
+}
+form{display:flex;flex-direction:column;gap:20px}
+.two{display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr));gap:20px}
+.f{display:flex;flex-direction:column;gap:8px}
+.f label{font-size:15px;color:#2E3B33}
+.field{width:100%;background:#F3F4F0;border:1px solid var(--stone-line);border-radius:2px;color:var(--stone-ink);padding:13px 14px;font:400 16px var(--sans);min-height:50px;color-scheme:light}
+.field:focus{outline:2px solid #8E4C38;outline-offset:0;border-color:#8E4C38}
+.send{background:var(--stone-ink);color:var(--stone);border-color:var(--stone-ink)}
+.send:hover{background:#2E3D33;border-color:#2E3D33}
+.done{border-top:1px solid var(--stone-ink);padding-top:28px}
+.done h3{margin:0;font-family:var(--serif);font-weight:500;font-size:34px}
+.done p{margin:12px 0 24px;color:var(--stone-muted)}
+
+/* ---------- footer ---------- */
+footer{background:var(--bg);overflow:hidden}
+.wordmark{font-family:var(--serif);font-weight:500;font-size:clamp(64px, 18.5vw, 290px);line-height:.95;letter-spacing:-.045em;color:var(--tuff);white-space:nowrap;text-align:center;padding-block:72px 8px}
+.wordmark .ln{display:inline-block;overflow:hidden;padding-bottom:.08em;vertical-align:top}
+.wordmark .ch{display:inline-block}
+footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 40px;padding-block:28px 40px;font-size:14px;color:#8B968C;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion: reduce){
+  #gate .mark path{animation:none;stroke-dashoffset:0}
+  .track,.cue i::after{animation:none}
+}
+</style>
+
+<!-- age gate & curtain -->
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="inner">
+    <img src="logo.png" alt="" width="108" height="110">
+    <h1 id="gate-title">Սիս Ալկո</h1>
+    <p>Գինի, կոնյակ և օղի՝ 2005 թվականից</p>
+    <div class="q">Ձեր 21 տարին լրացե՞լ է</div>
+    <div class="gate-btns">
+      <button class="btn btn-fill" id="gate-yes" type="button">Այո, մուտք գործել</button>
+      <button class="btn btn-ghost" id="gate-no" type="button">Ոչ</button>
+    </div>
+    <p class="no-msg" id="gate-msg" aria-live="polite"></p>
+    <p class="fine">Կայքը ներկայացնում է ալկոհոլային խմիչքներ</p>
+  </div>
+</div>
+
+<div id="stage" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#ch-1" aria-label="Սիս Ալկո, սկիզբ">
+      <img src="logo.png" alt="" width="33" height="34">
+      <span>Սիս Ալկո</span>
+    </a>
+    <nav class="main" aria-label="Գլխավոր մենյու">
+      <a href="#catalog" class="hide-sm" id="nav-cat">Կատալոգ</a>
+      <a href="#about" class="hide-sm">Մեր մասին</a>
+      <a href="#partners" class="hide-sm">Գործընկերներին</a>
+      <a href="#contact" class="hide-sm">Կապ</a>
+    </nav>
+    <span class="lang" data-noi18n aria-label="Language"><button type="button" data-l="hy" class="on">Հայ</button><button type="button" data-l="en" lang="en">EN</button><button type="button" data-l="ru" lang="ru">RU</button></span>
+  </div>
+</header>
+
+<div id="catalog-view" hidden>
+  <div class="wrap">
+    <a class="back" href="#home"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3 L5 9 L11 15"></path></svg>Գլխավոր էջ</a>
+    <div class="cat-head">
+      <div>
+        <h1 class="h-sec">Կատալոգ</h1>
+        <p class="lede">13 անուն՝ գինի, օղի և կոնյակ</p>
+      </div>
+      <div class="cat-filters" id="cat-filters" role="group" aria-label="Ցույց տալ"></div>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
+    <p class="cat-note">Առկայության և մատակարարման հարցերով զանգահարեք՝ +374 44 449 244։</p>
+  </div>
+</div>
+
+<div id="product-view" hidden>
+  <div class="p-drag" id="p-drag" aria-hidden="true"></div>
+  <div class="wrap p-wrap">
+    <div class="p-panel">
+      <a class="back" href="#catalog"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3 L5 9 L11 15"></path></svg>Կատալոգ</a>
+      <p class="kind" id="p-kind"></p>
+      <h1 id="p-name"></h1>
+      <p class="p-desc" id="p-desc"></p>
+      <dl class="p-facts" id="p-facts"></dl>
+      <dl class="p-serve">
+        <div><dt>Մատուցում</dt><dd id="p-serve"></dd></div>
+        <div><dt>Համադրվում է</dt><dd id="p-pair"></dd></div>
+        <p class="p-note">Ընդհանուր խորհուրդ այս տեսակի խմիչքների համար</p>
+      </dl>
+      <div class="p-actions"><button class="btn btn-fill" type="button" id="p-ask">Կապվել մեզ հետ</button></div>
+      <nav class="p-nav" aria-label="Այլ շշեր"><a id="p-prev" href="#catalog"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3 L5 9 L11 15"></path></svg><span></span></a><a id="p-next" href="#catalog"><span></span><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 3 L13 9 L7 15"></path></svg></a></nav>
+    </div>
+  </div>
+  <p class="p-hint" id="p-hint">Քաշեք շիշը՝ պտտելու համար</p>
+</div>
+
+<div id="story" role="dialog" aria-modal="true" aria-labelledby="st-h" hidden>
+  <div class="st-box">
+    <div class="st-img"><img id="st-img" alt=""></div>
+    <div class="st-txt">
+      <button class="ask-x" id="st-close" type="button">Փակել</button>
+      <p class="kind">Սիս Ալկո</p>
+      <h2 id="st-h"></h2>
+      <div id="st-body"></div>
+      <div class="st-nav">
+        <button class="m-nav" id="st-prev" type="button" aria-label="Նախորդը"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3 L5 9 L11 15"></path></svg></button>
+        <button class="m-nav" id="st-next" type="button" aria-label="Հաջորդը"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 3 L13 9 L7 15"></path></svg></button>
+        <span id="st-count" data-noi18n></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="hero" aria-labelledby="hero-h">
+    <h1 class="sr" id="hero-h">Սիս Ալկո</h1>
+    <div class="hero-word" aria-hidden="true">Սիս Ալկո</div>
+    <div class="wrap hero-foot">
+      <p>Գինի, կոնյակ և օղի։ Աշխատում ենք 2005 թվականից։</p>
+      <div class="cue"><i></i>Ոլորեք ներքև</div>
+    </div>
+  </section>
+
+  <section id="m-show" aria-label="Տեսականի">
+    <div class="m-stage">
+      <p class="m-hint" id="m-hint"><svg width="26" height="10" viewBox="0 0 26 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 1 L1 5 L5 9 M1 5 H25 M21 1 L25 5 L21 9"></path></svg>Սահեցրեք՝ հաջորդ շիշը տեսնելու համար</p>
+    </div>
+    <div class="m-sheet">
+      <div class="wrap">
+        <div class="m-tabs" id="m-tabs"></div>
+        <div id="m-text" aria-live="polite">
+          <p class="m-kind" id="m-kind"></p>
+          <h2 id="m-title"></h2>
+          <div class="m-meta"><span id="m-spec"></span><span id="m-count" data-noi18n></span></div>
+        </div>
+        <div class="m-prog" id="m-prog" aria-hidden="true"></div>
+        <div class="m-actions">
+          <button class="m-nav" id="m-prev" type="button" aria-label="Նախորդ շիշը"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3 L5 9 L11 15"></path></svg></button>
+          <a class="btn btn-fill" id="m-more" href="#p-krunk-red">Մանրամասն</a>
+          <button class="m-nav" id="m-next" type="button" aria-label="Հաջորդ շիշը"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 3 L13 9 L7 15"></path></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch-1" data-ch="1" aria-labelledby="h-krunk">
+    <div class="wrap">
+      <div class="panel">
+        <svg class="fallback-bottle" width="64" height="168" viewBox="0 0 64 168" fill="none" stroke="#C4836C" stroke-width="1.2" aria-hidden="true"><path d="M27 2h10v44c0 10 17 14 17 30v84c0 3-2 5-5 5H15c-3 0-5-2-5-5V76c0-16 17-20 17-30z"></path></svg>
+        <span class="kind r">Չոր գինիներ</span>
+        <h2 id="h-krunk" class="r">Կռունկ</h2>
+        <p class="sub r">Մեր գինիների հիմնական շարքը</p>
+        <ul class="items">
+          <li class="r on" data-v="krunk-red" data-p="Կռունկ կարմիր չոր գինի"><button class="nm" type="button">Կռունկ կարմիր</button><span class="sp">Կարմիր չոր</span></li>
+          <li class="r" data-v="krunk-white" data-p="Կռունկ սպիտակ չոր գինի"><button class="nm" type="button">Կռունկ սպիտակ</button><span class="sp">Սպիտակ չոր</span></li>
+          <li class="r" data-v="krunk-rose" data-p="Կռունկ վարդագույն չոր գինի"><button class="nm" type="button">Կռունկ վարդագույն</button><span class="sp">Վարդագույն չոր</span></li>
+        </ul>
+        <p class="hint r">Ընտրեք տեսակը, և շիշը կփոխվի</p>
+        <a class="more r" href="#p-krunk-red">Մանրամասն այս շշի մասին</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch-2" data-ch="2" aria-labelledby="h-sis">
+    <div class="wrap">
+      <div class="panel">
+        <svg class="fallback-bottle" width="64" height="168" viewBox="0 0 64 168" fill="none" stroke="#C4836C" stroke-width="1.2" aria-hidden="true"><path d="M27 2h10v44c0 10 17 14 17 30v84c0 3-2 5-5 5H15c-3 0-5-2-5-5V76c0-16 17-20 17-30z"></path></svg>
+        <span class="kind r">Սահմանափակ թողարկում</span>
+        <h2 id="h-sis" class="r">Սիս</h2>
+        <p class="sub r">Չոր գինիներ 750 մլ շշերով</p>
+        <ul class="items">
+          <li class="r on" data-v="sis-red" data-p="Սիս կարմիր չոր գինի"><button class="nm" type="button">Սիս կարմիր</button><span class="sp">750 մլ, 15%</span></li>
+          <li class="r" data-v="sis-white" data-p="Սիս սպիտակ չոր գինի"><button class="nm" type="button">Սիս սպիտակ</button><span class="sp">750 մլ, 12.5%</span></li>
+          <li class="r" data-v="sis-rose" data-p="Սիս վարդագույն չոր գինի"><button class="nm" type="button">Սիս վարդագույն</button><span class="sp">750 մլ, 12.5%</span></li>
+        </ul>
+        <a class="more r" href="#p-sis-red">Մանրամասն այս շշի մասին</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch-3" data-ch="3" aria-labelledby="h-vodka">
+    <div class="wrap">
+      <div class="panel">
+        <svg class="fallback-bottle" width="64" height="168" viewBox="0 0 64 168" fill="none" stroke="#C4836C" stroke-width="1.2" aria-hidden="true"><path d="M25 2h14v26c0 8 15 10 15 22v110c0 3-2 5-5 5H15c-3 0-5-2-5-5V50c0-12 15-14 15-22z"></path></svg>
+        <span class="kind r">Ցորենից և հացահատիկից</span>
+        <h2 id="h-vodka" class="r">Օղիներ</h2>
+        <p class="sub r">Վեց անուն մեկ շարքում</p>
+        <ul class="items">
+          <li class="r on" data-v="fayton" data-p="Ֆայտոն օղի"><button class="nm" type="button">Ֆայտոն</button><span class="sp">500 մլ, 40%</span></li>
+          <li class="r" data-v="fin" data-p="Ֆին պրեմիում օղի"><button class="nm" type="button">Ֆին պրեմիում</button><span class="sp">Եռակի թորում, 40%</span></li>
+          <li class="r" data-v="chisty" data-p="Չիստի Կլյուչ օղի"><button class="nm" type="button">Չիստի Կլյուչ</button><span class="sp">500 մլ, 40%</span></li>
+          <li class="r" data-v="north" data-p="Նորթ պրեմիում օղի"><button class="nm" type="button">Նորթ պրեմիում</button><span class="sp">Եռակի թորում</span></li>
+          <li class="r" data-v="marsel" data-p="Մարսել օղի"><button class="nm" type="button">Մարսել</button><span class="sp">40%</span></li>
+          <li class="r" data-v="shangal" data-p="Շանգալ պրեմիում օղի"><button class="nm" type="button">Շանգալ պրեմիում</button><span class="sp">500 մլ, 40%</span></li>
+        </ul>
+        <a class="more r" href="#p-fayton">Մանրամասն այս շշի մասին</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch-4" data-ch="4" aria-labelledby="h-hayanist">
+    <div class="wrap">
+      <div class="panel">
+        <svg class="fallback-bottle" width="64" height="168" viewBox="0 0 64 168" fill="none" stroke="#C4836C" stroke-width="1.2" aria-hidden="true"><path d="M27 34h10v26c0 6 22 10 22 32v68c0 3-2 5-5 5H10c-3 0-5-2-5-5V92c0-22 22-26 22-32z"></path></svg>
+        <span class="kind r">Կոնյակ</span>
+        <h2 id="h-hayanist" class="r">Հայանիստ</h2>
+        <p class="sub r">Հնեցված հինգ տարի</p>
+        <ul class="items">
+          <li class="r on" data-v="hayanist" data-p="Հայանիստ 5 տարվա կոնյակ"><button class="nm" type="button">Հայանիստ 5 տարի</button><span class="sp">500 մլ, 40%</span></li>
+        </ul>
+        <a class="more r" href="#p-hayanist">Մանրամասն այս շշի մասին</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="band" aria-label="Մեր անունները">
+    <p class="sr">Կռունկ, Սիս, Ֆայտոն, Հայանիստ, Շանգալ, Նորթ, Ֆին, Մարսել</p>
+    <div class="track" id="track" aria-hidden="true"></div>
+  </section>
+
+  <section id="to-catalog" aria-label="Կատալոգ">
+    <div class="wrap">
+      <p>Բոլոր 13 անունները մեկ էջում</p>
+      <a class="btn btn-fill" href="#catalog">Բացել կատալոգը</a>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="about-top">
+        <h2 class="h-sec" id="about-h">Մեր մասին</h2>
+        <p class="about-lead">Հայկական ընկերություն։ Գինի, կոնյակ և օղի՝ 2005 թվականից։</p>
+      </div>
+      <div class="gallery" id="gallery" aria-label="Մեր գործարանը">
+        <button class="g-item" type="button" data-g="0"><img src="ph/1.jpg" alt="" loading="lazy"><span class="cap"><b style="font-weight:500">Շշալցում</b><i>Կարդալ</i></span></button>
+        <button class="g-item" type="button" data-g="1"><img src="ph/2.jpg" alt="" loading="lazy"><span class="cap"><b style="font-weight:500">Խաղողի մթերում</b><i>Կարդալ</i></span></button>
+        <button class="g-item" type="button" data-g="2"><img src="ph/3.jpg" alt="" loading="lazy"><span class="cap"><b style="font-weight:500">Սիս</b><i>Կարդալ</i></span></button>
+        <button class="g-item" type="button" data-g="3"><img src="ph/4.jpg" alt="" loading="lazy"><span class="cap"><b style="font-weight:500">Կռունկ</b><i>Կարդալ</i></span></button>
+        <button class="g-item" type="button" data-g="4"><img src="ph/5.jpg" alt="" loading="lazy"><span class="cap"><b style="font-weight:500">Գինի</b><i>Կարդալ</i></span></button>
+      </div>
+      <dl class="about-facts">
+        <div><dt>Հիմնադրվել է</dt><dd>2005</dd></div>
+        <div><dt>Փորձ</dt><dd>20+ տարի</dd></div>
+        <div><dt>Տեսականի</dt><dd>13 անուն</dd></div>
+        <div><dt>Գտնվում ենք</dt><dd>Հայանիստ</dd></div>
+      </dl>
+      <ul class="about-values">
+        <li>Հայկական ինքնություն</li>
+        <li>Հստակ տեղեկություն</li>
+        <li>Բաց համագործակցություն</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="partners" aria-labelledby="partners-h">
+    <div class="wrap">
+      <h2 class="h-sec" id="partners-h">Գործընկերներին</h2>
+      <p class="lede">Խանութներ, ռեստորաններ, վերավաճառողներ</p>
+      <div class="steps">
+        <div class="line" id="stepline" aria-hidden="true"></div>
+        <ol>
+          <li><small>Քայլ 1</small><div>Գրեք մեզ</div></li>
+          <li><small>Քայլ 2</small><div>Ընտրում ենք տեսականին</div></li>
+          <li><small>Քայլ 3</small><div>Մատակարարում ենք</div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="c-head">
+        <h2 class="h-sec" id="contact-h">Կապ</h2>
+        <p class="lede">Գրեք կամ զանգահարեք, կպատասխանենք</p>
+      </div>
+      <dl class="c-tiles">
+        <div><dt>Հեռախոս</dt><dd id="v-phone">+374 44 449 244</dd><button class="copy" type="button" data-copy="v-phone">Պատճենել</button></div>
+        <div><dt>Էլ․ փոստ</dt><dd id="v-mail">info@sisalco.am</dd><button class="copy" type="button" data-copy="v-mail">Պատճենել</button></div>
+        <div><dt>Հասցե</dt><dd id="v-addr">գ․ Հայանիստ, Էջմիածնի փողոց 39</dd><button class="copy" type="button" data-copy="v-addr">Պատճենել</button></div>
+      </dl>
+      <div class="msgr" data-noi18n>
+        <a href="https://wa.me/37444449244" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://t.me/+37444449244" target="_blank" rel="noopener">Telegram</a>
+        <a href="viber://chat?number=%2B37444449244">Viber</a>
+      </div>
+      <div class="c-form">
+        <h3 class="c-sub">Կամ թողեք հարցում</h3>
+        <form id="form" novalidate>
+          <div class="two">
+            <div class="f"><label for="f-name">Անուն</label><input class="field" id="f-name" type="text" autocomplete="name" required></div>
+            <div class="f"><label for="f-phone">Հեռախոս</label><input class="field" id="f-phone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="f"><label for="f-mail">Էլ․ փոստ</label><input class="field" id="f-mail" type="email" autocomplete="email" required></div>
+          <div class="f"><label for="f-topic">Ինչն է ձեզ հետաքրքրում</label>
+            <select class="field" id="f-topic">
+              <option>Ընդհանուր հարց</option>
+              <option>Մեծածախ պատվեր</option>
+              <option>Կռունկ կարմիր չոր գինի</option><option>Կռունկ սպիտակ չոր գինի</option><option>Կռունկ վարդագույն չոր գինի</option>
+              <option>Սիս կարմիր չոր գինի</option><option>Սիս սպիտակ չոր գինի</option><option>Սիս վարդագույն չոր գինի</option>
+              <option>Ֆայտոն օղի</option><option>Ֆին պրեմիում օղի</option><option>Չիստի Կլյուչ օղի</option><option>Նորթ պրեմիում օղի</option><option>Մարսել օղի</option><option>Շանգալ պրեմիում օղի</option>
+              <option>Հայանիստ 5 տարվա կոնյակ</option>
+            </select>
+          </div>
+          <div class="f"><label for="f-msg">Հաղորդագրություն</label><textarea class="field" id="f-msg" rows="4" required style="resize:vertical"></textarea></div>
+          <p id="f-err" role="alert" style="margin:0;color:#8E3A28;min-height:1.4em;font-size:15px"></p>
+          <div><button class="btn send" type="submit">Ուղարկել հարցումը</button></div>
+        </form>
+        <div class="done" id="done" hidden>
+          <h3 id="done-h">Հարցումը պատրաստ է</h3>
+          <p id="done-p">Ուղարկեք այն մեզ ձեզ հարմար եղանակով։</p>
+          <pre id="done-text" data-noi18n></pre>
+          <div class="row">
+            <a class="btn send" id="done-wa" target="_blank" rel="noopener">Ուղարկել WhatsApp-ով</a>
+            <button class="btn btn-ghost" type="button" id="done-copy" style="color:var(--stone-ink);border-color:var(--stone-line)">Պատճենել տեքստը</button>
+            <button class="btn btn-ghost" type="button" id="again" style="color:var(--stone-ink);border-color:var(--stone-line)">Գրել նոր հարցում</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wordmark" aria-hidden="true"><span class="ln" id="foot-letters">Սիս Ալկո</span></div>
+  <div class="wrap">
+    <div class="meta">
+      <span>© 2026 Սիս Ալկո</span>
+      <span>գ․ Հայանիստ, Էջմիածնի փողոց 39</span>
+      <span>21+։ Խմեք պատասխանատվությամբ։</span>
+    </div>
+  </div>
+</footer>
+
+<nav id="tabbar" aria-label="Հիմնական բաժիններ">
+  <a href="#ch-1" data-t="show"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M2 18 L8 6 L12.5 13 L15 10 L20 18 Z"></path></svg><span>Գլխավոր</span></a>
+  <a href="#about" data-t="about"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V9l5 3V9l5 3V4h4v15z M2 19h18"></path></svg><span>Մեր մասին</span></a>
+  <a href="#catalog" data-t="cat"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 3h6.500v6.500H3zM12.500 3H19v6.500h-6.500zM3 12.500h6.500V19H3zM12.500 12.500H19V19h-6.500z"></path></svg><span>Կատալոգ</span></a>
+  <a href="#contact" data-t="contact"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h16v12H3z M3 5l8 7 8-7"></path></svg><span>Կապ</span></a>
+</nav>
+
+<div id="rail" aria-label="Շարքեր">
+  <button type="button" data-go="1"><span>Կռունկ</span><i></i></button>
+  <button type="button" data-go="2"><span>Սիս</span><i></i></button>
+  <button type="button" data-go="3"><span>Օղիներ</span><i></i></button>
+  <button type="button" data-go="4"><span>Հայանիստ</span><i></i></button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var SA = window.SA = window.SA || {};
+  SA.chapter = 0; SA.entered = false;
+  SA.variant = { 1: 'krunk-red', 2: 'sis-red', 3: 'fayton', 4: 'hayanist' };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  SA.reduce = reduce;
+  var rail = document.getElementById('rail');
+  var introOn = !reduce;
+  if (introOn) document.documentElement.classList.add('intro');
+  SA.endIntro = function(){ if (!introOn) return; introOn = false; document.documentElement.classList.remove('intro'); if (SA.entered) lock(false); };
+  var isM = window.matchMedia('(max-width: 760px)').matches;
+  SA.mobile = isM;
+  if (isM) document.documentElement.classList.add('m');
+  /* ---------- languages: Armenian is the source text; English and Russian are looked up by it ---------- */
+  var I18N = {
+    'Սիս Ալկո': ['Sis Alco', 'Сис Алко'],
+    'Գինի, կոնյակ և օղի՝ 2005 թվականից': ['Wine, cognac and vodka since 2005', 'Вино, коньяк и водка с 2005 года'],
+    'Ձեր 21 տարին լրացե՞լ է': ['Are you 21 or older?', 'Вам уже исполнился 21 год?'],
+    'Այո, մուտք գործել': ['Yes, enter', 'Да, войти'],
+    'Ոչ': ['No', 'Нет'],
+    'Կայքը ներկայացնում է ալկոհոլային խմիչքներ': ['This site presents alcoholic beverages', 'Сайт представляет алкогольные напитки'],
+    'Կայքը հասանելի է միայն 21 տարին լրացած անձանց։': ['This site is only for people aged 21 and over.', 'Сайт доступен только лицам старше 21 года.'],
+    'Շշերը 3D-ով': ['Bottles in 3D', 'Бутылки в 3D'],
+    'Կատալոգ': ['Catalogue', 'Каталог'],
+    'Մեր մասին': ['About us', 'О нас'],
+    'Գործընկերներին': ['For partners', 'Партнёрам'],
+    'Կապ': ['Contact', 'Контакты'],
+    'Գինի, կոնյակ և օղի։ Աշխատում ենք 2005 թվականից։': ['Wine, cognac and vodka. Working since 2005.', 'Вино, коньяк и водка. Работаем с 2005 года.'],
+    'Ոլորեք ներքև': ['Scroll down', 'Листайте вниз'],
+    'Չոր գինիներ': ['Dry wines', 'Сухие вина'],
+    'Կռունկ': ['Krunk', 'Крунк'],
+    'Մեր գինիների հիմնական շարքը': ['The main line of our wines', 'Основная линейка наших вин'],
+    'Կռունկ կարմիր': ['Krunk Red', 'Крунк красное'],
+    'Կռունկ սպիտակ': ['Krunk White', 'Крунк белое'],
+    'Կռունկ վարդագույն': ['Krunk Rosé', 'Крунк розовое'],
+    'Կարմիր չոր': ['Red dry', 'Красное сухое'],
+    'Սպիտակ չոր': ['White dry', 'Белое сухое'],
+    'Վարդագույն չոր': ['Rosé dry', 'Розовое сухое'],
+    'Հարցնել գինը': ['Ask for the price', 'Узнать цену'],
+    'Ընտրեք տեսակը, և շիշը կփոխվի': ['Pick a wine and the bottle changes', 'Выберите вино, и бутылка сменится'],
+    'Մանրամասն այս շշի մասին': ['More about this bottle', 'Подробнее об этой бутылке'],
+    'Մանրամասն': ['Details', 'Подробнее'],
+    'Սահմանափակ թողարկում': ['Limited edition', 'Лимитированная серия'],
+    'Սիս': ['Sis', 'Сис'],
+    'Չոր գինիներ 750 մլ շշերով': ['Dry wines in 750 ml bottles', 'Сухие вина в бутылках 750 мл'],
+    'Սիս կարմիր': ['Sis Red', 'Сис красное'],
+    'Սիս սպիտակ': ['Sis White', 'Сис белое'],
+    'Սիս վարդագույն': ['Sis Rosé', 'Сис розовое'],
+    '750 մլ, 15%': ['750 ml, 15%', '750 мл, 15%'],
+    '750 մլ, 12.5%': ['750 ml, 12.5%', '750 мл, 12,5%'],
+    'Ցորենից և հացահատիկից': ['From wheat and grain', 'Из пшеницы и зерна'],
+    'Օղիներ': ['Vodkas', 'Водки'],
+    'Վեց անուն մեկ շարքում': ['Six names in one range', 'Шесть наименований в одной линейке'],
+    'Ֆայտոն': ['Phaeton', 'Фаэтон'],
+    'Ֆին պրեմիում': ['Fin Premium', 'Фин Премиум'],
+    'Չիստի Կլյուչ': ['Chisty Klyuch', 'Чистый ключ'],
+    'Նորթ պրեմիում': ['North Premium', 'Норт Премиум'],
+    'Մարսել': ['Marseille', 'Марсель'],
+    'Շանգալ պրեմիում': ['Shingal Premium', 'Шингал Премиум'],
+    'Շանգալ': ['Shingal', 'Шингал'], 'Նորթ': ['North', 'Норт'], 'Ֆին': ['Fin', 'Фин'],
+    '500 մլ, 40%': ['500 ml, 40%', '500 мл, 40%'],
+    'Եռակի թորում, 40%': ['Triple distilled, 40%', 'Тройная дистилляция, 40%'],
+    'Եռակի թորում': ['Triple distilled', 'Тройная дистилляция'],
+    'Կոնյակ': ['Cognac', 'Коньяк'],
+    'Հայանիստ': ['Hayanist', 'Айанист'],
+    'Հնեցված հինգ տարի': ['Aged five years', 'Выдержка пять лет'],
+    'Հայանիստ 5 տարի': ['Hayanist 5 Years', 'Айанист 5 лет'],
+    'Բոլոր 13 անունները մեկ էջում': ['All 13 names on one page', 'Все 13 наименований на одной странице'],
+    'Բացել կատալոգը': ['Open the catalogue', 'Открыть каталог'],
+    'Սիս Ալկոն հայկական ընկերություն է։ 2005 թվականից ստեղծում ենք գինի, կոնյակ և օղի։': ['Sis Alco is an Armenian company. We have been making wine, cognac and vodka since 2005.', 'Сис Алко — армянская компания. С 2005 года мы создаём вино, коньяк и водку.'],
+    'Հիմնադրվել է': ['Founded', 'Основана'],
+    'Փորձ': ['Experience', 'Опыт'],
+    '20+ տարի': ['20+ years', '20+ лет'],
+    'Տեսականի': ['Range', 'Ассортимент'],
+    '13 անուն': ['13 names', '13 наименований'],
+    'Գտնվում ենք': ['Location', 'Находимся'],
+    'Հայկական ինքնություն': ['Armenian identity', 'Армянская идентичность'],
+    'Գինի, կոնյակ և օղի՝ մեր երկիրը ներկայացնող մեկ տեսականու մեջ։': ['Wine, cognac and vodka in one range that represents our country.', 'Вино, коньяк и водка в одном ассортименте, представляющем нашу страну.'],
+    'Հստակ տեղեկություն': ['Clear information', 'Ясная информация'],
+    'Օգնում ենք ճանաչել արտադրանքը և ճշտել առկայությունը։': ['We help you get to know the products and check availability.', 'Помогаем узнать продукцию и уточнить наличие.'],
+    'Բաց համագործակցություն': ['Open cooperation', 'Открытое сотрудничество'],
+    'Պատրաստ ենք քննարկել մատակարարման և գործընկերության հարցերը։': ['We are ready to discuss supply and partnership.', 'Готовы обсудить поставки и партнёрство.'],
+    'Հայկական ընկերություն։ Գինի, կոնյակ և օղի՝ 2005 թվականից։': ['An Armenian company. Wine, cognac and vodka since 2005.', 'Армянская компания. Вино, коньяк и водка с 2005 года.'],
+    'Խաղողի մթերում': ['Grape intake', 'Приёмка винограда'], 'Խաղող': ['Grapes', 'Виноград'],
+    'Կարդալ': ['Read', 'Читать'],
+    'SIS ALCO-ի յուրաքանչյուր շշի հետևում հստակ կազմակերպված արտադրական գործընթաց է։': ['Behind every bottle of SIS ALCO there is a clearly organised production process.', 'За каждой бутылкой SIS ALCO стоит чётко организованный производственный процесс.'],
+    'Շշալցման յուրաքանչյուր փուլ իրականացվում է մանրակրկիտ և հետևողական՝ պահպանելով արտադրանքի որակն ու ներկայացման բարձր չափանիշները։': ['Every stage of bottling is carried out carefully and consistently, keeping the quality of the product and the high standard of its presentation.', 'Каждый этап розлива выполняется тщательно и последовательно, с сохранением качества продукции и высоких стандартов её подачи.'],
+    'SIS ALCO՝ որակ, որը ձևավորվում է յուրաքանչյուր փուլում։': ['SIS ALCO: quality that is shaped at every stage.', 'SIS ALCO: качество, которое формируется на каждом этапе.'],
+    'Գինու ստեղծման ճանապարհը սկսվում է խաղողի ճիշտ ընտրությունից։': ['The path of a wine begins with choosing the right grapes.', 'Путь вина начинается с правильного выбора винограда.'],
+    'Մթերման ընթացքում խաղողը կշռվում և մանրակրկիտ ստուգվում է՝ գնահատելով դրա որակն ու հասունությունը։': ['During intake the grapes are weighed and carefully inspected to assess their quality and ripeness.', 'Во время приёмки виноград взвешивают и тщательно проверяют, оценивая его качество и зрелость.'],
+    'Այնուհետև սկսվում է մշակման գործընթացը, որտեղ յուրաքանչյուր փուլ իր դերն ունի ապագա գինու համի և բնավորության ձևավորման մեջ։': ['Then processing begins, where every stage plays its part in shaping the taste and character of the future wine.', 'Затем начинается переработка, где каждый этап играет свою роль в формировании вкуса и характера будущего вина.'],
+    'Խաղողից մինչև գինի՝ մի ճանապարհ, որի հիմքը դրվում է հենց այստեղ։': ['From grape to wine: a path whose foundation is laid right here.', 'От винограда до вина: путь, основа которого закладывается именно здесь.'],
+    'Համի ու բույրի ներդաշնակություն՝ մեկ բաժակում։': ['A harmony of taste and aroma in one glass.', 'Гармония вкуса и аромата в одном бокале.'],
+    'Նրբագեղ ընտրություն՝ ջերմ հանդիպումների, գեղեցիկ երեկոների և տոնական սեղանի համար։': ['An elegant choice for warm gatherings, beautiful evenings and a festive table.', 'Изысканный выбор для тёплых встреч, красивых вечеров и праздничного стола.'],
+    'Կռունկ՝ երբ ցանկանում եք պահը դարձնել առանձնահատուկ։': ['Krunk: for when you want to make the moment special.', 'Крунк: когда хочется сделать момент особенным.'],
+    'Երբ սեղանի շուրջ հավաքվում են հարազատ մարդիկ, լավ գինին դառնում է երեկոյի լավագույն լրացումը։': ['When loved ones gather around the table, a good wine becomes the best addition to the evening.', 'Когда за столом собираются близкие, хорошее вино становится лучшим дополнением вечера.'],
+    'Գործարան': ['Factory', 'Завод'], 'Արտադրություն': ['Production', 'Производство'], 'Շշալցում': ['Bottling', 'Розлив'], 'Մառան': ['Cellar', 'Погреб'], 'Թիմ': ['Team', 'Команда'],
+    'Գրեք մեզ': ['Write to us', 'Напишите нам'], 'Մատակարարում ենք': ['We deliver', 'Поставляем'],
+    'Գրեք կամ զանգահարեք, կպատասխանենք': ['Write or call, we will reply', 'Напишите или позвоните, мы ответим'],
+    'Կամ թողեք հարցում': ['Or leave a request', 'Или оставьте запрос'],
+    'Խանութներ, ռեստորաններ, վերավաճառողներ': ['Shops, restaurants, resellers', 'Магазины, рестораны, реселлеры'],
+    'Քայլ 1': ['Step 1', 'Шаг 1'], 'Քայլ 2': ['Step 2', 'Шаг 2'], 'Քայլ 3': ['Step 3', 'Шаг 3'],
+    'Գրեք կամ զանգահարեք': ['Write or call', 'Напишите или позвоните'],
+    'Ընտրում ենք տեսականին': ['We choose the range together', 'Подбираем ассортимент'],
+    'Համաձայնեցնում ենք մատակարարումը': ['We agree on delivery', 'Согласовываем поставку'],
+    'Հեռախոս': ['Phone', 'Телефон'],
+    'Էլ․ փոստ': ['Email', 'Эл. почта'],
+    'Հասցե': ['Address', 'Адрес'],
+    'գ․ Հայանիստ, Էջմիածնի փողոց 39': ['39 Ejmiatsin St, Hayanist, Armenia', 'с. Айанист, ул. Эчмиадзина, 39'],
+    'Պատճենել': ['Copy', 'Копировать'],
+    'Պատճենված է': ['Copied', 'Скопировано'],
+    'Ընտրված է, պատճենեք': ['Selected, copy it', 'Выделено, скопируйте'],
+    'Անուն': ['Name', 'Имя'],
+    'Ինչն է ձեզ հետաքրքրում': ['What are you interested in', 'Что вас интересует'],
+    'Ընդհանուր հարց': ['General question', 'Общий вопрос'],
+    'Մեծածախ պատվեր': ['Wholesale order', 'Оптовый заказ'],
+    'Կռունկ կարմիր չոր գինի': ['Krunk red dry wine', 'Крунк, красное сухое вино'],
+    'Կռունկ սպիտակ չոր գինի': ['Krunk white dry wine', 'Крунк, белое сухое вино'],
+    'Կռունկ վարդագույն չոր գինի': ['Krunk rosé dry wine', 'Крунк, розовое сухое вино'],
+    'Սիս կարմիր չոր գինի': ['Sis red dry wine', 'Сис, красное сухое вино'],
+    'Սիս սպիտակ չոր գինի': ['Sis white dry wine', 'Сис, белое сухое вино'],
+    'Սիս վարդագույն չոր գինի': ['Sis rosé dry wine', 'Сис, розовое сухое вино'],
+    'Ֆայտոն օղի': ['Phaeton vodka', 'Водка «Фаэтон»'],
+    'Ֆին պրեմիում օղի': ['Fin premium vodka', 'Водка «Фин Премиум»'],
+    'Չիստի Կլյուչ օղի': ['Chisty Klyuch vodka', 'Водка «Чистый ключ»'],
+    'Նորթ պրեմիում օղի': ['North premium vodka', 'Водка «Норт Премиум»'],
+    'Մարսել օղի': ['Marseille vodka', 'Водка «Марсель»'],
+    'Շանգալ պրեմիում օղի': ['Shingal premium vodka', 'Водка «Шингал Премиум»'],
+    'Հայանիստ 5 տարվա կոնյակ': ['Hayanist 5-year-old cognac', 'Коньяк «Айанист», 5 лет'],
+    'Հաղորդագրություն': ['Message', 'Сообщение'],
+    'Ուղարկել հարցումը': ['Send the request', 'Отправить запрос'],
+    'Գրեք ձեր անունը։': ['Enter your name.', 'Введите ваше имя.'],
+    'Գրեք ճիշտ էլ․ փոստի հասցե, օրինակ՝ anun@mail.am': ['Enter a valid email, for example name@mail.com', 'Введите корректный адрес, например name@mail.ru'],
+    'Գրեք մի քանի բառ ձեր հարցի մասին։': ['Write a few words about your question.', 'Напишите пару слов о вашем вопросе.'],
+    'Հարցումը պատրաստ է': ['Your request is ready', 'Запрос готов'],
+    'Ուղարկեք այն մեզ ձեզ հարմար եղանակով։': ['Send it to us in the way that suits you.', 'Отправьте его удобным вам способом.'],
+    'Ուղարկել WhatsApp-ով': ['Send via WhatsApp', 'Отправить в WhatsApp'],
+    'Պատճենել տեքստը': ['Copy the text', 'Скопировать текст'],
+    'Գրել նոր հարցում': ['Write a new request', 'Новый запрос'],
+    'Հարցումն ուղարկված է': ['Request sent', 'Запрос отправлен'],
+    'Շուտով կպատասխանենք։': ['We will reply soon.', 'Мы скоро ответим.'],
+    'Չհաջողվեց ուղարկել։ Փորձեք WhatsApp-ով կամ զանգահարեք։': ['Could not send. Try WhatsApp or call us.', 'Не удалось отправить. Попробуйте WhatsApp или позвоните.'],
+    '© 2026 Սիս Ալկո': ['© 2026 Sis Alco', '© 2026 Сис Алко'],
+    '21+։ Խմեք պատասխանատվությամբ։': ['21+. Drink responsibly.', '21+. Употребляйте ответственно.'],
+    'Գլխավոր': ['Home', 'Главная'],
+    'Շշեր': ['Bottles', 'Бутылки'],
+    'Սահեցրեք՝ հաջորդ շիշը տեսնելու համար': ['Swipe to see the next bottle', 'Смахните, чтобы увидеть следующую'],
+    'Գլխավոր էջ': ['Home page', 'Главная страница'],
+    '13 անուն՝ գինի, օղի և կոնյակ': ['13 names: wine, vodka and cognac', '13 наименований: вино, водка и коньяк'],
+    'Բոլորը': ['All', 'Все'],
+    'Գինի': ['Wine', 'Вино'],
+    'Օղի': ['Vodka', 'Водка'],
+    'Առկայության և մատակարարման հարցերով զանգահարեք՝ +374 44 449 244։': ['For availability and delivery, call +374 44 449 244.', 'По вопросам наличия и поставки звоните: +374 44 449 244.'],
+    'Կապվել մեզ հետ': ['Contact us', 'Связаться с нами'],
+    'Ինչպե՞ս եք ուզում գրել մեզ': ['How would you like to write to us?', 'Как вам удобнее написать нам?'],
+    'Գրել ձևով': ['Use the form', 'Через форму'],
+    'Փակել': ['Close', 'Закрыть'],
+    'Տեսակ': ['Type', 'Тип'], 'Շարք': ['Series', 'Серия'], 'Ծավալ': ['Volume', 'Объём'], 'Ալկոհոլ': ['Alcohol', 'Алкоголь'], 'Ծագում': ['Origin', 'Происхождение'],
+    'Հումք': ['Base', 'Сырьё'], 'Հնեցում': ['Ageing', 'Выдержка'], 'Թորում': ['Distillation', 'Дистилляция'], 'Զտում': ['Filtration', 'Фильтрация'],
+    'Հայաստան': ['Armenia', 'Армения'], 'Ցորեն': ['Wheat', 'Пшеница'], 'Հացահատիկ': ['Grain', 'Зерно'], 'Ածխային': ['Charcoal', 'Угольная'],
+    '5 տարի': ['5 years', '5 лет'], '750 մլ': ['750 ml', '750 мл'], '500 մլ': ['500 ml', '500 мл'],
+    'Կարմիր չոր գինի': ['Red dry wine', 'Красное сухое вино'], 'Սպիտակ չոր գինի': ['White dry wine', 'Белое сухое вино'], 'Վարդագույն չոր գինի': ['Rosé dry wine', 'Розовое сухое вино'],
+    'Պրեմիում օղի': ['Premium vodka', 'Премиум-водка'], 'Հայկական կոնյակ': ['Armenian cognac', 'Армянский коньяк'],
+    'Մատուցում': ['Serving', 'Подача'],
+    'Համադրվում է': ['Pairs with', 'Сочетается с'],
+    'Ընդհանուր խորհուրդ այս տեսակի խմիչքների համար': ['General advice for drinks of this type', 'Общая рекомендация для напитков этого типа'],
+    'Քաշեք շիշը՝ պտտելու համար': ['Drag the bottle to rotate it', 'Потяните бутылку, чтобы повернуть'],
+    '16–18°C': ['16–18°C', '16–18°C'], '8–10°C': ['8–10°C', '8–10°C'], '8–12°C': ['8–12°C', '8–12°C'],
+    '6–8°C, լավ սառեցված': ['6–8°C, well chilled', '6–8°C, хорошо охлаждённой'],
+    '18–20°C': ['18–20°C', '18–20°C'],
+    'Կարմիր միս, խորոված, հասուն պանիրներ': ['Red meat, barbecue, mature cheeses', 'Красное мясо, шашлык, выдержанные сыры'],
+    'Ձուկ, ծովամթերք, թեթև աղցաններ': ['Fish, seafood, light salads', 'Рыба, морепродукты, лёгкие салаты'],
+    'Թեթև նախուտեստներ, մրգեր, հավի միս': ['Light starters, fruit, chicken', 'Лёгкие закуски, фрукты, курица'],
+    'Թթուներ, ձկնեղեն, սառը նախուտեստներ': ['Pickles, fish, cold starters', 'Соленья, рыба, холодные закуски'],
+    'Մուգ շոկոլադ, չրեր, սուրճ': ['Dark chocolate, dried fruit, coffee', 'Тёмный шоколад, сухофрукты, кофе'],
+    '«Կռունկ» կարմիր չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։': ['Krunk red dry wine belongs to the main line of Sis Alco wines. Made in Armenia.', 'Красное сухое вино «Крунк» входит в основную линейку вин Сис Алко. Произведено в Армении.'],
+    '«Կռունկ» սպիտակ չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։': ['Krunk white dry wine belongs to the main line of Sis Alco wines. Made in Armenia.', 'Белое сухое вино «Крунк» входит в основную линейку вин Сис Алко. Произведено в Армении.'],
+    '«Կռունկ» վարդագույն չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։': ['Krunk rosé dry wine belongs to the main line of Sis Alco wines. Made in Armenia.', 'Розовое сухое вино «Крунк» входит в основную линейку вин Сис Алко. Произведено в Армении.'],
+    '«Սիս» սահմանափակ թողարկման հայկական կարմիր չոր գինի։ Հեղինակային հավաքածու։': ['Sis is an Armenian red dry wine from a limited edition. An author’s collection.', '«Сис»: армянское красное сухое вино лимитированной серии. Авторская коллекция.'],
+    '«Սիս» սահմանափակ թողարկման հայկական սպիտակ չոր գինի։ Հեղինակային հավաքածու։': ['Sis is an Armenian white dry wine from a limited edition. An author’s collection.', '«Сис»: армянское белое сухое вино лимитированной серии. Авторская коллекция.'],
+    '«Սիս» սահմանափակ թողարկման հայկական վարդագույն չոր գինի։ Հեղինակային հավաքածու։': ['Sis is an Armenian rosé dry wine from a limited edition. An author’s collection.', '«Сис»: армянское розовое сухое вино лимитированной серии. Авторская коллекция.'],
+    '«Ֆայտոնը» ցորենից թորված, ածխային ֆիլտրացում անցած հայկական օղի է։ Թորվում և շշալցվում է Հայաստանում։': ['Phaeton is an Armenian vodka distilled from wheat and charcoal filtered. Distilled and bottled in Armenia.', '«Фаэтон»: армянская водка из пшеницы, прошедшая угольную фильтрацию. Дистиллируется и разливается в Армении.'],
+    '«Ֆին» պրեմիում օղին եռակի թորման հացահատիկային օղի է։': ['Fin Premium is a triple-distilled grain vodka.', '«Фин Премиум»: зерновая водка тройной дистилляции.'],
+    '«Չիստի Կլյուչ» օղին թորված և շշալցված է Հայաստանում։': ['Chisty Klyuch vodka is distilled and bottled in Armenia.', 'Водка «Чистый ключ» дистиллирована и разлита в Армении.'],
+    '«Նորթ» պրեմիում օղին եռակի թորման հացահատիկային օղի է։': ['North Premium is a triple-distilled grain vodka.', '«Норт Премиум»: зерновая водка тройной дистилляции.'],
+    '«Մարսել» օղին Սիս Ալկոյի օղիների տեսականուց է։': ['Marseille vodka is part of the Sis Alco vodka range.', 'Водка «Марсель» входит в ассортимент водок Сис Алко.'],
+    '«Շանգալ» պրեմիում օղին արտադրված է Հայաստանում։': ['Shingal Premium vodka is made in Armenia.', 'Водка «Шингал Премиум» произведена в Армении.'],
+    '«Հայանիստ» հայկական կոնյակ՝ հնեցված հինգ տարի։': ['Hayanist is an Armenian cognac aged for five years.', '«Айанист»: армянский коньяк пятилетней выдержки.']
+  };
+  var LANG = 'hy';
+  try { var sl = localStorage.getItem('sa-lang'); if (sl === 'en' || sl === 'ru') LANG = sl; } catch (e) {}
+  function tr(s){ if (LANG === 'hy') return s; var e = I18N[s]; return e ? e[LANG === 'en' ? 0 : 1] : s; }
+  SA.tr = tr;
+  function applyLang(root){
+    var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())) {
+      var p = n.parentNode;
+      if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE' || (p.closest && p.closest('[data-noi18n]'))) continue;
+      if (n.__hy === undefined) {
+        var raw = n.nodeValue, t = raw.trim();
+        if (!t || !I18N[t]) continue;
+        var i = raw.indexOf(t); n.__hy = t; n.__pre = raw.slice(0, i); n.__post = raw.slice(i + t.length);
+      }
+      n.nodeValue = n.__pre + tr(n.__hy) + n.__post;
+    }
+  }
+  function setLang(l, init){
+    LANG = l; SA.lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); b.setAttribute('aria-pressed', b.dataset.l === l ? 'true' : 'false'); });
+    applyLang(document.body);
+    var fl = document.getElementById('foot-letters'); fl.textContent = tr('Սիս Ալկո'); split(fl);
+    if (!init) { try { localStorage.setItem('sa-lang', l); } catch (e) {} }
+    if (SA.onLang) SA.onLang();
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.l); }); });
+
+  /* ---------- contact channels ---------- */
+  var WA = '37444449244';
+  function askMsg(p){
+    var n = tr(p);
+    if (LANG === 'en') return 'Hello. I am interested in ' + n + '. Please tell me the price and availability.';
+    if (LANG === 'ru') return 'Здравствуйте. Интересует: ' + n + '. Подскажите, пожалуйста, цену и наличие.';
+    return 'Բարև ձեզ։ Հետաքրքրում է՝ ' + n + '։ Խնդրում եմ ասել գինը և առկայությունը։';
+  }
+
+  /* ---------- products ---------- */
+  var KIND = {
+    red:    { cat: 'Գինի', serve: '16–18°C', pair: 'Կարմիր միս, խորոված, հասուն պանիրներ' },
+    white:  { cat: 'Գինի', serve: '8–10°C', pair: 'Ձուկ, ծովամթերք, թեթև աղցաններ' },
+    rose:   { cat: 'Գինի', serve: '8–12°C', pair: 'Թեթև նախուտեստներ, մրգեր, հավի միս' },
+    vodka:  { cat: 'Օղի', serve: '6–8°C, լավ սառեցված', pair: 'Թթուներ, ձկնեղեն, սառը նախուտեստներ' },
+    cognac: { cat: 'Կոնյակ', serve: '18–20°C', pair: 'Մուգ շոկոլադ, չրեր, սուրճ' }
+  };
+  var AM = ['Ծագում', 'Հայաստան'];
+  var PD = {
+    'krunk-red':   { k: 'red',   desc: '«Կռունկ» կարմիր չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։', facts: [['Տեսակ', 'Կարմիր չոր գինի'], ['Շարք', 'Կռունկ'], AM] },
+    'krunk-white': { k: 'white', desc: '«Կռունկ» սպիտակ չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։', facts: [['Տեսակ', 'Սպիտակ չոր գինի'], ['Շարք', 'Կռունկ'], AM] },
+    'krunk-rose':  { k: 'rose',  desc: '«Կռունկ» վարդագույն չոր գինին Սիս Ալկոյի գինիների հիմնական շարքից է։ Արտադրված է Հայաստանում։', facts: [['Տեսակ', 'Վարդագույն չոր գինի'], ['Շարք', 'Կռունկ'], AM] },
+    'sis-red':     { k: 'red',   desc: '«Սիս» սահմանափակ թողարկման հայկական կարմիր չոր գինի։ Հեղինակային հավաքածու։', facts: [['Տեսակ', 'Կարմիր չոր գինի'], ['Շարք', 'Սահմանափակ թողարկում'], ['Ծավալ', '750 մլ'], ['Ալկոհոլ', '15%'], AM] },
+    'sis-white':   { k: 'white', desc: '«Սիս» սահմանափակ թողարկման հայկական սպիտակ չոր գինի։ Հեղինակային հավաքածու։', facts: [['Տեսակ', 'Սպիտակ չոր գինի'], ['Շարք', 'Սահմանափակ թողարկում'], ['Ծավալ', '750 մլ'], ['Ալկոհոլ', '12.5%'], AM] },
+    'sis-rose':    { k: 'rose',  desc: '«Սիս» սահմանափակ թողարկման հայկական վարդագույն չոր գինի։ Հեղինակային հավաքածու։', facts: [['Տեսակ', 'Վարդագույն չոր գինի'], ['Շարք', 'Սահմանափակ թողարկում'], ['Ծավալ', '750 մլ'], ['Ալկոհոլ', '12.5%'], AM] },
+    'fayton':      { k: 'vodka', desc: '«Ֆայտոնը» ցորենից թորված, ածխային ֆիլտրացում անցած հայկական օղի է։ Թորվում և շշալցվում է Հայաստանում։', facts: [['Տեսակ', 'Պրեմիում օղի'], ['Հումք', 'Ցորեն'], ['Զտում', 'Ածխային'], ['Ծավալ', '500 մլ'], ['Ալկոհոլ', '40%'], AM] },
+    'fin':         { k: 'vodka', desc: '«Ֆին» պրեմիում օղին եռակի թորման հացահատիկային օղի է։', facts: [['Տեսակ', 'Պրեմիում օղի'], ['Հումք', 'Հացահատիկ'], ['Թորում', 'Եռակի թորում'], ['Ալկոհոլ', '40%']] },
+    'chisty':      { k: 'vodka', desc: '«Չիստի Կլյուչ» օղին թորված և շշալցված է Հայաստանում։', facts: [['Տեսակ', 'Օղի'], ['Ծավալ', '500 մլ'], ['Ալկոհոլ', '40%'], AM] },
+    'north':       { k: 'vodka', desc: '«Նորթ» պրեմիում օղին եռակի թորման հացահատիկային օղի է։', facts: [['Տեսակ', 'Պրեմիում օղի'], ['Հումք', 'Հացահատիկ'], ['Թորում', 'Եռակի թորում']] },
+    'marsel':      { k: 'vodka', desc: '«Մարսել» օղին Սիս Ալկոյի օղիների տեսականուց է։', facts: [['Տեսակ', 'Օղի'], ['Ալկոհոլ', '40%']] },
+    'shangal':     { k: 'vodka', desc: '«Շանգալ» պրեմիում օղին արտադրված է Հայաստանում։', facts: [['Տեսակ', 'Պրեմիում օղի'], ['Ծավալ', '500 մլ'], ['Ալկոհոլ', '40%'], AM] },
+    'hayanist':    { k: 'cognac', desc: '«Հայանիստ» հայկական կոնյակ՝ հնեցված հինգ տարի։', facts: [['Տեսակ', 'Հայկական կոնյակ'], ['Հնեցում', '5 տարի'], ['Ծավալ', '500 մլ'], ['Ալկոհոլ', '40%'], AM] }
+  };
+  var ORDER = [], NAME = {}, FULL = {};
+  document.querySelectorAll('.chapter li[data-v]').forEach(function(li){ ORDER.push(li.dataset.v); NAME[li.dataset.v] = li.querySelector('.nm').textContent; FULL[li.dataset.v] = li.dataset.p; });
+
+  function lock(on){ document.body.style.overflow = on ? 'hidden' : ''; if (lenis) { on ? lenis.stop() : lenis.start(); } }
+  function toForm(p){
+    document.getElementById('f-topic').value = p;
+    toMain(function(){
+      go(document.getElementById('contact'));
+      setTimeout(function(){ document.getElementById('f-name').focus({ preventScroll: true }); }, reduce ? 0 : 1700);
+    });
+  }
+
+  function setChapter(i){
+    if (SA.view && SA.view !== 'main') return;
+    if (SA.chapter === i) return;
+    SA.chapter = i;
+    rail.classList.toggle('on', i > 0);
+    rail.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', +b.dataset.go === i); });
+    if (SA.onChapter) SA.onChapter(i);
+  }
+
+  /* smooth scroll */
+  var lenis = null;
+  if (window.Lenis && !reduce && !isM) {
+    try { lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 }); SA.lenis = lenis; } catch (e) { lenis = null; }
+  }
+  function go(el){
+    if (lenis) lenis.scrollTo(el, { duration: 1.6 });
+    else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  function split(el){
+    var txt = el.textContent; el.textContent = '';
+    Array.from(txt).forEach(function(c){ var s = document.createElement('span'); s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c; el.appendChild(s); });
+  }
+  split(document.getElementById('foot-letters'));
+  document.querySelectorAll('#f-topic option').forEach(function(o){ o.value = o.textContent; });
+
+  /* marquee */
+  var names = ['Կռունկ','Սիս','Ֆայտոն','Հայանիստ','Շանգալ','Նորթ','Ֆին','Մարսել'];
+  var track = document.getElementById('track');
+  names.concat(names).forEach(function(n, i){
+    var s = document.createElement('span');
+    s.innerHTML = '<b style="font-weight:inherit" class="' + (i % 2 ? 'o' : '') + '"></b><svg width="44" height="28" viewBox="0 0 34 22" fill="none" stroke="#C4836C" stroke-width="1.1" stroke-linejoin="round"><path d="M1 21 L12 3 L20 14 L24 9 L33 21"></path></svg>';
+    s.firstChild.textContent = n; track.appendChild(s);
+  });
+
+  /* header */
+  var head = document.getElementById('top');
+  function onScroll(){ head.classList.toggle('solid', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* catalogue: a separate page behind #catalog */
+  var catView = document.getElementById('catalog-view'), mainEl = document.querySelector('main'), stageEl = document.getElementById('stage');
+  var savedY = 0, afterMain = null, catBuilt = false;
+  function setScroll(y){ if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y); }
+  function toMain(fn){ if (!SA.view || SA.view === 'main') { fn(); return; } afterMain = fn; location.hash = '#home'; }
+  function tabState(){
+    var key = 'none';
+    if (SA.view && SA.view !== 'main') key = 'cat';
+    else {
+      var mid = window.innerHeight / 2;
+      [['m-show', 'show'], ['about', 'about'], ['contact', 'contact']].forEach(function(p){ var el = document.getElementById(p[0]); if (!el) return; var r = el.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) key = p[1]; });
+    }
+    document.querySelectorAll('#tabbar a').forEach(function(a){ a.classList.toggle('on', a.dataset.t === key); });
+    var nc = document.getElementById('nav-cat'); if (nc) nc.classList.toggle('cur', !!SA.cat);
+  }
+  SA.setThumb = function(id, url){
+    var img = document.querySelector('.cat-card[data-id="' + id + '"] img'); if (!img) return;
+    img.src = url; img.hidden = false; var f = img.parentNode.querySelector('svg'); if (f) f.remove();
+  };
+  SA.wantThumbs = false;
+  function thumbs(){ SA.wantThumbs = true; if (SA.makeThumbs) SA.makeThumbs(SA.setThumb); }
+  function buildCatalog(){
+    if (catBuilt) return; catBuilt = true;
+    var grid = document.getElementById('cat-grid'), fl = document.getElementById('cat-filters');
+    var CAT = { 1: ['wine', 'Գինի'], 2: ['wine', 'Գինի'], 3: ['vodka', 'Օղի'], 4: ['cognac', 'Կոնյակ'] }, counts = { all: 0, wine: 0, vodka: 0, cognac: 0 };
+    document.querySelectorAll('.chapter li[data-v]').forEach(function(li){
+      var c = CAT[+li.closest('.chapter').dataset.ch], name = li.dataset.p;
+      counts.all++; counts[c[0]]++;
+      var card = document.createElement('article'); card.className = 'cat-card'; card.dataset.id = li.dataset.v; card.dataset.c = c[0];
+      card.innerHTML = '<button class="cat-img" type="button"><svg width="48" height="126" viewBox="0 0 64 168" fill="none" stroke="#56655B" stroke-width="1.2" aria-hidden="true"><path d="M27 2h10v44c0 10 17 14 17 30v84c0 3-2 5-5 5H15c-3 0-5-2-5-5V76c0-16 17-20 17-30z"></path></svg><img alt="" hidden><span class="v3d">3D</span></button><p class="k"></p><h3></h3><p class="s"></p><a class="more">Մանրամասն</a>';
+      card.querySelector('.cat-img').setAttribute('aria-label', name);
+      card.querySelector('.cat-img').addEventListener('click', function(){ location.hash = '#p-' + li.dataset.v; });
+      card.querySelector('.k').textContent = c[1];
+      card.querySelector('h3').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+      card.querySelector('.s').textContent = li.querySelector('.sp').textContent;
+      card.querySelector('.more').href = '#p-' + li.dataset.v;
+      grid.appendChild(card);
+    });
+    setTimeout(function(){ applyLang(catView); }, 0);
+    [['all', 'Բոլորը'], ['wine', 'Գինի'], ['vodka', 'Օղի'], ['cognac', 'Կոնյակ']].forEach(function(f, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = i ? '' : 'on'; b.setAttribute('aria-pressed', i ? 'false' : 'true');
+      b.innerHTML = '<i style="font-style:normal"></i><span data-noi18n>' + counts[f[0]] + '</span>'; b.firstChild.textContent = f[1];
+      b.addEventListener('click', function(){
+        fl.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        grid.querySelectorAll('.cat-card').forEach(function(cd){ cd.hidden = f[0] !== 'all' && cd.dataset.c !== f[0]; });
+      });
+      fl.appendChild(b);
+    });
+  }
+  var prodView = document.getElementById('product-view');
+  function renderProduct(id){
+    var d = PD[id], k = KIND[d.k], i = ORDER.indexOf(id), pv = ORDER[(i + ORDER.length - 1) % ORDER.length], nx = ORDER[(i + 1) % ORDER.length];
+    function put(el, hy){ el.textContent = hy; }
+    put(document.getElementById('p-kind'), k.cat); put(document.getElementById('p-name'), NAME[id]); put(document.getElementById('p-desc'), d.desc);
+    var f = document.getElementById('p-facts'); f.innerHTML = '';
+    d.facts.forEach(function(r){ var row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = r[0]; dd.textContent = r[1]; row.appendChild(dt); row.appendChild(dd); f.appendChild(row); });
+    put(document.getElementById('p-serve'), k.serve); put(document.getElementById('p-pair'), k.pair);
+    var a = document.getElementById('p-prev'), b = document.getElementById('p-next');
+    a.href = '#p-' + pv; put(a.querySelector('span'), NAME[pv]); b.href = '#p-' + nx; put(b.querySelector('span'), NAME[nx]);
+    document.getElementById('p-ask').onclick = function(){ toForm(FULL[id]); };
+    applyLang(prodView);
+  }
+  (function(){
+    var z = document.getElementById('p-drag'), down = false, lx = 0;
+    z.addEventListener('pointerdown', function(e){ down = true; lx = e.clientX; try { z.setPointerCapture(e.pointerId); } catch (x) {} document.getElementById('p-hint').classList.add('off'); });
+    z.addEventListener('pointermove', function(e){ if (!down) return; if (SA.dragBy) SA.dragBy((e.clientX - lx) * 0.011); lx = e.clientX; });
+    ['pointerup', 'pointercancel'].forEach(function(n){ z.addEventListener(n, function(){ down = false; }); });
+  })();
+  function syncChapter(){
+    var mid = window.innerHeight / 2, c = 0, inShow = false;
+    document.querySelectorAll(isM ? '#m-show' : '.chapter').forEach(function(el){
+      var r = el.getBoundingClientRect(); if (!r.height || r.top > mid || r.bottom < mid) return;
+      if (isM) inShow = true; else c = +el.dataset.ch;
+    });
+    if (isM && SA.mShow) { if (inShow) { SA.mShow.enter(); return; } SA.mShow.leave(); }
+    setChapter(c);
+  }
+  function parse(){
+    var h = location.hash;
+    if (h === '#catalog') return { v: 'cat', id: null };
+    if (h.indexOf('#p-') === 0 && PD[h.slice(3)]) return { v: 'prod', id: h.slice(3) };
+    return { v: 'main', id: null };
+  }
+  function route(){
+    var r = parse(), prev = SA.view || 'main', prevId = SA.prod || null;
+    if (r.v !== prev || r.id !== prevId) {
+      if (prev === 'main') savedY = window.scrollY;
+      SA.view = r.v; SA.cat = r.v === 'cat'; SA.prod = r.id;
+      catView.hidden = r.v !== 'cat'; prodView.hidden = r.v !== 'prod'; mainEl.hidden = r.v !== 'main'; stageEl.hidden = r.v === 'cat';
+      rail.classList.toggle('on', r.v === 'main' && SA.chapter > 0);
+      if (r.v !== 'main') head.classList.remove('light');
+      if (r.v === 'cat') buildCatalog();
+      if (r.v === 'prod') renderProduct(r.id);
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+      setScroll(r.v === 'main' ? savedY : 0);
+      if (r.v !== 'cat' && SA.resize) SA.resize();
+      if (r.v === 'cat') thumbs();
+      if (SA.onProd && (prev === 'prod' || r.v === 'prod')) SA.onProd(SA.prod);
+    }
+    if (r.v === 'main' && prev !== 'main') setTimeout(syncChapter, 80);
+    if (r.v === 'main' && afterMain) { var f = afterMain; afterMain = null; f(); }
+    tabState();
+  }
+  window.addEventListener('hashchange', route);
+  window.addEventListener('scroll', tabState, { passive: true });
+
+  /* variants: pick a product and the bottle changes (real pointer movement only, not rows sliding under a still cursor) */
+  window.addEventListener('pointermove', function(e){ setTimeout(function(){ SA.px = e.clientX; SA.py = e.clientY; }, 0); }, { passive: true });
+  document.querySelectorAll('.items').forEach(function(list){
+    var ch = +list.closest('.chapter').dataset.ch;
+    function pick(li){
+      if (li.classList.contains('on')) return;
+      list.querySelectorAll('li').forEach(function(x){ x.classList.toggle('on', x === li); });
+      SA.variant[ch] = li.dataset.v;
+      var mo = list.parentNode.querySelector('.more'); if (mo) mo.href = '#p-' + li.dataset.v;
+      if (SA.chapter === ch && SA.onVariant) SA.onVariant(li.dataset.v);
+    }
+    list.querySelectorAll('li').forEach(function(li){
+      li.addEventListener('pointermove', function(e){ if (e.pointerType === 'mouse' && (e.clientX !== SA.px || e.clientY !== SA.py)) pick(li); });
+      li.querySelector('.nm').addEventListener('click', function(){ pick(li); });
+      li.querySelector('.nm').addEventListener('focus', function(){ pick(li); });
+    });
+  });
+
+  /* phone: one bottle at a time */
+  if (isM) (function(){
+    var $ = function(id){ return document.getElementById(id); };
+    var items = [], firstOf = {};
+    document.querySelectorAll('.chapter').forEach(function(ch){
+      var n = +ch.dataset.ch, title = ch.querySelector('h2').textContent, kind = ch.querySelector('.kind').textContent;
+      ch.querySelectorAll('li[data-v]').forEach(function(li){
+        if (firstOf[n] === undefined) firstOf[n] = items.length;
+        items.push({ id: li.dataset.v, ch: n, series: title, kind: kind, name: li.querySelector('.nm').textContent, spec: li.querySelector('.sp').textContent, p: li.dataset.p });
+      });
+    });
+    var idx = 0, inView = !window.ScrollTrigger, tabs = $('m-tabs'), prog = $('m-prog'), sec = $('m-show');
+    Object.keys(firstOf).forEach(function(n){
+      var b = document.createElement('button'); b.type = 'button'; b.dataset.ch = n; b.textContent = items[firstOf[n]].series;
+      b.addEventListener('click', function(){ show(firstOf[n], firstOf[n] >= idx ? 1 : -1); });
+      tabs.appendChild(b);
+    });
+    items.forEach(function(it, i){ var s = document.createElement('i'); if (i && items[i - 1].ch !== it.ch) s.className = 'g'; prog.appendChild(s); });
+    function paint(){
+      var it = items[idx];
+      $('m-kind').textContent = it.kind; $('m-title').textContent = it.name; $('m-spec').textContent = it.spec;
+      $('m-count').textContent = (idx + 1) + ' / ' + items.length; $('m-more').href = '#p-' + it.id; applyLang(sec);
+      tabs.querySelectorAll('button').forEach(function(b){ var on = +b.dataset.ch === it.ch; b.classList.toggle('on', on); if (on && b.scrollIntoView) { try { tabs.scrollTo({ left: b.offsetLeft - 16, behavior: 'smooth' }); } catch (e) {} } });
+      prog.querySelectorAll('i').forEach(function(s, i){ s.classList.toggle('on', i === idx); });
+    }
+    function sync(){ var it = items[idx]; SA.variant[it.ch] = it.id; if (SA.chapter !== it.ch) setChapter(it.ch); }
+    function show(i, dir){
+      i = (i + items.length) % items.length; if (i === idx) return;
+      var prev = items[idx]; idx = i; var it = items[idx];
+      SA.variant[it.ch] = it.id;
+      if (inView) {
+        if (SA.chapter !== it.ch) setChapter(it.ch); else if (SA.onVariant) SA.onVariant(it.id);
+        if (SA.kick) SA.kick(dir || 1);
+      }
+      $('m-hint').classList.add('off');
+      paint();
+      if (window.gsap && !reduce) gsap.fromTo('#m-text > *', { x: 28 * (dir || 1), opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: 'expo.out', stagger: 0.04, overwrite: true });
+    }
+    $('m-prev').addEventListener('click', function(){ show(idx - 1, -1); });
+    $('m-next').addEventListener('click', function(){ show(idx + 1, 1); });
+    var sx = 0, sy = 0, down = false;
+    sec.addEventListener('pointerdown', function(e){ if (e.target.closest('button, a')) return; down = true; sx = e.clientX; sy = e.clientY; });
+    sec.addEventListener('pointerup', function(e){
+      if (!down) return; down = false;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.2) show(idx + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    });
+    sec.addEventListener('pointercancel', function(){ down = false; });
+    var settle = null, snapCss = window.CSS && CSS.supports && CSS.supports('scroll-snap-type', 'y proximity');
+    window.addEventListener('scroll', function(){
+      clearTimeout(settle);
+      settle = setTimeout(function(){
+        if (SA.view && SA.view !== 'main') return;
+        var top = sec.getBoundingClientRect().top, vh = window.innerHeight;
+        if (Math.abs(top) < 2 || Math.abs(top) > vh * (snapCss ? 0.22 : 0.38)) return;
+        window.scrollTo({ top: window.scrollY + top, behavior: reduce ? 'auto' : 'smooth' });
+      }, 140);
+    }, { passive: true });
+    SA.mShow = { enter: function(){ inView = true; sync(); }, leave: function(){ inView = false; }, showId: function(id){ for (var k = 0; k < items.length; k++) if (items[k].id === id) { show(k, 1); break; } } };
+    paint();
+
+  })();
+
+  rail.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (b) go(document.getElementById('ch-' + b.dataset.go));
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var h = a.getAttribute('href'), t = document.querySelector(isM && h === '#ch-1' ? '#m-show' : h); if (!t) return;
+      e.preventDefault(); toMain(function(){ go(t); });
+    });
+  });
+
+  /* copy */
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.dataset.copy), text = el.textContent.trim();
+      function ok(){ b.textContent = tr('Պատճենված է'); setTimeout(function(){ b.textContent = tr('Պատճենել'); }, 1800); }
+      function sel(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = tr('Ընտրված է, պատճենեք'); }
+      try { navigator.clipboard.writeText(text).then(ok, sel); } catch (err) { sel(); }
+    });
+  });
+
+  /* form: sends to FORM_ENDPOINT when one is set; otherwise hands the finished message to WhatsApp or the clipboard */
+  var FORM_ENDPOINT = '';   // e.g. 'https://formspree.io/f/xxxx' or your own API; leave empty until the site is hosted
+  var form = document.getElementById('form'), done = document.getElementById('done'), err = document.getElementById('f-err');
+  function setText(id, hy){ var el = document.getElementById(id); el.textContent = hy; applyLang(el); }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('f-name'), mail = document.getElementById('f-mail'), msg = document.getElementById('f-msg'), tel = document.getElementById('f-phone'), topic = document.getElementById('f-topic');
+    if (!name.value.trim()) { setText('f-err', 'Գրեք ձեր անունը։'); name.focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test(mail.value.trim())) { setText('f-err', 'Գրեք ճիշտ էլ․ փոստի հասցե, օրինակ՝ anun@mail.am'); mail.focus(); return; }
+    if (msg.value.trim().length < 5) { setText('f-err', 'Գրեք մի քանի բառ ձեր հարցի մասին։'); msg.focus(); return; }
+    err.textContent = '';
+    var subject = tr(topic.value), body = subject + '\n' + name.value.trim() + '\n\n' + msg.value.trim();
+    function show(sent){
+      setText('done-h', sent ? 'Հարցումն ուղարկված է' : 'Հարցումը պատրաստ է');
+      setText('done-p', sent ? 'Շուտով կպատասխանենք։' : 'Ուղարկեք այն մեզ ձեզ հարմար եղանակով։');
+      document.getElementById('done-text').textContent = body;
+      document.getElementById('done-text').hidden = sent; document.getElementById('done-wa').hidden = sent; document.getElementById('done-copy').hidden = sent;
+      document.getElementById('done-wa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(body);
+      form.hidden = true; done.hidden = false;
+    }
+    if (!FORM_ENDPOINT) { show(false); return; }
+    fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ name: name.value.trim(), email: mail.value.trim(), phone: tel.value.trim(), topic: subject, message: msg.value.trim() }) })
+      .then(function(r){ if (!r.ok) throw new Error(); show(true); })
+      .catch(function(){ setText('f-err', 'Չհաջողվեց ուղարկել։ Փորձեք WhatsApp-ով կամ զանգահարեք։'); });
+  });
+  document.getElementById('again').addEventListener('click', function(){ form.reset(); done.hidden = true; form.hidden = false; });
+  document.getElementById('done-copy').addEventListener('click', function(){
+    var b = this, el = document.getElementById('done-text');
+    function ok(){ b.textContent = tr('Պատճենված է'); setTimeout(function(){ b.textContent = tr('Պատճենել տեքստը'); }, 1800); }
+    function sel(){ var r = document.createRange(); r.selectNodeContents(el); var s2 = getSelection(); s2.removeAllRanges(); s2.addRange(r); }
+    try { navigator.clipboard.writeText(el.textContent).then(ok, sel); } catch (x) { sel(); }
+  });
+
+  /* stories: each photo opens with the text the brand itself published with it */
+  var STORIES = [
+    ['Շշալցում', ['SIS ALCO-ի յուրաքանչյուր շշի հետևում հստակ կազմակերպված արտադրական գործընթաց է։', 'Շշալցման յուրաքանչյուր փուլ իրականացվում է մանրակրկիտ և հետևողական՝ պահպանելով արտադրանքի որակն ու ներկայացման բարձր չափանիշները։', 'SIS ALCO՝ որակ, որը ձևավորվում է յուրաքանչյուր փուլում։']],
+    ['Խաղողի մթերում', ['Գինու ստեղծման ճանապարհը սկսվում է խաղողի ճիշտ ընտրությունից։', 'Մթերման ընթացքում խաղողը կշռվում և մանրակրկիտ ստուգվում է՝ գնահատելով դրա որակն ու հասունությունը։', 'Այնուհետև սկսվում է մշակման գործընթացը, որտեղ յուրաքանչյուր փուլ իր դերն ունի ապագա գինու համի և բնավորության ձևավորման մեջ։', 'Խաղողից մինչև գինի՝ մի ճանապարհ, որի հիմքը դրվում է հենց այստեղ։']],
+    ['Սիս', ['Համի ու բույրի ներդաշնակություն՝ մեկ բաժակում։']],
+    ['Կռունկ', ['Նրբագեղ ընտրություն՝ ջերմ հանդիպումների, գեղեցիկ երեկոների և տոնական սեղանի համար։', 'Կռունկ՝ երբ ցանկանում եք պահը դարձնել առանձնահատուկ։']],
+    ['Գինի', ['Երբ սեղանի շուրջ հավաքվում են հարազատ մարդիկ, լավ գինին դառնում է երեկոյի լավագույն լրացումը։']]
+  ];
+  var stEl = document.getElementById('story'), stI = 0, stFrom = null;
+  function stShow(i){
+    stI = (i + STORIES.length) % STORIES.length; var d = STORIES[stI];
+    document.getElementById('st-img').src = 'ph/' + (stI + 1) + '.jpg';
+    document.getElementById('st-h').textContent = d[0];
+    var b = document.getElementById('st-body'); b.innerHTML = '';
+    d[1].forEach(function(t){ var p = document.createElement('p'); p.className = 't'; p.textContent = t; b.appendChild(p); });
+    document.getElementById('st-count').textContent = (stI + 1) + ' / ' + STORIES.length;
+    applyLang(stEl);
+    if (window.gsap && !reduce) gsap.fromTo('#st-h, #st-body p', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out', stagger: 0.06, overwrite: true });
+  }
+  function stClose(){ stEl.hidden = true; lock(false); if (stFrom) stFrom.focus(); }
+  document.querySelectorAll('.g-item').forEach(function(g){ g.addEventListener('click', function(){ stFrom = g; stEl.hidden = false; lock(true); stShow(+g.dataset.g); document.getElementById('st-close').focus(); }); });
+  document.getElementById('st-close').addEventListener('click', stClose);
+  document.getElementById('st-prev').addEventListener('click', function(){ stShow(stI - 1); });
+  document.getElementById('st-next').addEventListener('click', function(){ stShow(stI + 1); });
+  stEl.addEventListener('click', function(e){ if (e.target === stEl) stClose(); });
+  document.addEventListener('keydown', function(e){ if (stEl.hidden) return; if (e.key === 'Escape') stClose(); if (e.key === 'ArrowLeft') stShow(stI - 1); if (e.key === 'ArrowRight') stShow(stI + 1); });
+
+  /* scroll story */
+  function initScroll(){
+    if (!window.gsap || !window.ScrollTrigger) {
+      var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting) setChapter(+en.target.dataset.ch || 0); }); }, { threshold: 0.5 });
+      document.querySelectorAll('.chapter, #hero').forEach(function(s){ io.observe(s); });
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    if (lenis) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+    if (isM) ScrollTrigger.create({ trigger: '#m-show', start: 'top 55%', end: 'bottom 45%', onEnter: function(){ SA.mShow.enter(); }, onEnterBack: function(){ SA.mShow.enter(); }, onLeaveBack: function(){ SA.mShow.leave(); } });
+    if (!isM) document.querySelectorAll('.chapter').forEach(function(ch){
+      var i = +ch.dataset.ch;
+      ScrollTrigger.create({ trigger: ch, start: 'top 55%', end: 'bottom 45%', onEnter: function(){ setChapter(i); }, onEnterBack: function(){ setChapter(i); } });
+      if (!reduce) {
+        gsap.from(ch.querySelectorAll('.r'), { y: 64, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06,
+          scrollTrigger: { trigger: ch, start: 'top 62%', toggleActions: 'play none none reverse' } });
+      }
+    });
+    ScrollTrigger.create({ trigger: '#band', start: 'top 70%', onEnter: function(){ rail.classList.remove('on'); }, onLeaveBack: function(){ rail.classList.add('on'); } });
+    ['#about', '#contact'].forEach(function(sel){ ScrollTrigger.create({ trigger: sel, start: 'top 36px', end: 'bottom 36px', toggleClass: { targets: '#top', className: 'light' } }); });
+    if (reduce) return;
+    gsap.from('.about-facts div', { y: 28, opacity: 0, stagger: 0.09, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.about-facts', start: 'top 82%' } });
+    gsap.from('.gallery .g-item', { y: 36, opacity: 0, stagger: 0.08, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.gallery', start: 'top 85%' } });
+    gsap.fromTo('#stepline', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 85%', end: 'top 45%', scrub: true } });
+    gsap.from('.steps li', { y: 40, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.steps', start: 'top 75%' } });
+    gsap.from('#foot-letters .ch', { yPercent: 115, duration: 1.2, ease: 'expo.out', stagger: 0.05, scrollTrigger: { trigger: 'footer', start: 'top 85%' } });
+  }
+
+  /* entrance after the gate */
+  function enter(){
+    if (!introOn) lock(false); else setTimeout(SA.endIntro, 12000);
+    var gate = document.getElementById('gate');
+    if (window.gsap && !reduce) {
+      gsap.timeline()
+        .to('#gate .inner', { opacity: 0, y: -20, duration: 0.5, ease: 'power2.in' })
+        .add(function(){ SA.entered = true; if (SA.onEnter) SA.onEnter(); })
+        .to(gate, { clipPath: 'inset(0 0 100% 0)', duration: 1.2, ease: 'expo.inOut' }, '-=0.05')
+        .add(function(){ gate.hidden = true; });
+    } else { gate.hidden = true; SA.entered = true; if (SA.onEnter) SA.onEnter(); }
+  }
+
+  var accepted = false;
+  try { accepted = localStorage.getItem('sa-age') === '1'; } catch (e) {}
+  document.getElementById('gate-yes').addEventListener('click', function(){
+    try { localStorage.setItem('sa-age', '1'); } catch (e) {}
+    enter();
+  });
+  document.getElementById('gate-no').addEventListener('click', function(){
+    var gm = document.getElementById('gate-msg'); gm.textContent = 'Կայքը հասանելի է միայն 21 տարին լրացած անձանց։'; applyLang(gm);
+  });
+  initScroll();
+  route();
+  if (SA.view && SA.view !== 'main') { SA.skipIntro = true; SA.endIntro(); }
+  setLang(LANG, true);
+  if (accepted) { setTimeout(enter, 900); } else { lock(true); document.getElementById('gate-yes').focus(); }
+  setTimeout(function(){ if (!SA.glReady) { document.documentElement.classList.add('no-gl'); SA.entered = SA.entered || false; SA.endIntro(); } }, 7000);
+})();
+</script>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const SA = window.SA;
+const host = document.getElementById('stage');
+const small = () => (SA.mobile !== undefined ? SA.mobile : innerWidth < 760);
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+} catch (e) {
+  document.documentElement.classList.add('no-gl');
+  throw e;
+}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small() ? 1.5 : 2));
+renderer.toneMapping = THREE.LinearToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+host.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+scene.add(camera);
+
+/* ---------- studio environment: soft boxes that draw long highlights down the glass ---------- */
+{
+  const env = new THREE.Scene();
+  env.add(new THREE.Mesh(new THREE.SphereGeometry(40, 16, 12), new THREE.MeshBasicMaterial({ color: 0x06080a, side: THREE.BackSide })));
+  const box = (w, h, x, y, z, r, g, b) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color().setRGB(r, g, b), side: THREE.DoubleSide }));
+    m.position.set(x, y, z); m.lookAt(0, 1.5, 0); env.add(m);
+  };
+  box(1.6, 10, -7, 2.5, 3.5, 7.5, 7.1, 6.6);     // key strip, left front
+  box(0.7, 9, 6.5, 2.5, 1.5, 4.2, 4.5, 4.8);      // thin strip, right
+  box(7, 4, 0, 10, 2, 1.5, 1.45, 1.4);           // overhead
+  box(2.5, 7, 5, 2, -7, 5, 2.9, 2.1);           // warm rim from behind
+  box(2, 6, -6, 1.5, -6, 1.6, 1.75, 1.9);      // cool rim from behind
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromScene(env, 0.015).texture;
+  pm.dispose();
+}
+const key = new THREE.DirectionalLight(0xfff0e4, 0.5); key.position.set(-3, 5, 5); scene.add(key);
+
+/* ---------- backdrop: colour, glow behind the bottle, and the giant word the glass bends ---------- */
+const mask = document.createElement('canvas');
+const mctx = mask.getContext('2d');
+const maskTex = new THREE.CanvasTexture(mask);
+maskTex.minFilter = THREE.LinearFilter; maskTex.generateMipmaps = false;
+const U = {
+  uBg: { value: new THREE.Color('#18211C') }, uGlow: { value: new THREE.Color('#3b2a22') },
+  uGlowPos: { value: new THREE.Vector2(0.5, 0.5) }, uGlowR: { value: 0.42 },
+  uMask: { value: maskTex }, uTextCol: { value: new THREE.Color('#C4836C') }, uTextA: { value: 1 },
+  uOff: { value: new THREE.Vector2() }, uAspect: { value: 1 }, uTime: { value: 0 }
+};
+const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({
+  uniforms: U, toneMapped: false, depthWrite: true,
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `
+    varying vec2 vUv;
+    uniform vec3 uBg, uGlow, uTextCol; uniform vec2 uGlowPos, uOff; uniform float uGlowR, uTextA, uAspect, uTime; uniform sampler2D uMask;
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+    void main(){
+      float d = length((vUv - uGlowPos) * vec2(uAspect, 1.0));
+      vec3 col = uBg + uGlow * exp(-d * d / (uGlowR * uGlowR));
+      vec2 tuv = vUv - uOff;
+      float m = (tuv.x < 0.0 || tuv.x > 1.0 || tuv.y < 0.0 || tuv.y > 1.0) ? 0.0 : texture2D(uMask, tuv).r;
+      col = mix(col, uTextCol, m * uTextA);
+      col *= 1.0 - 0.32 * smoothstep(0.35, 1.0, length((vUv - 0.5) * vec2(1.0, 1.15)) * 1.25);
+      col += (hash(gl_FragCoord.xy + fract(uTime) * 61.0) - 0.5) * 0.009;
+      gl_FragColor = vec4(col, 1.0);
+      #include <colorspace_fragment>
+    }`
+}));
+const BD = 15;
+backdrop.position.z = -BD; backdrop.renderOrder = -10;
+camera.add(backdrop);
+
+/* ---------- bottles: the real product photographs wrapped on each bottle's own silhouette ---------- */
+const PROF = {"krunk-red":{"h":3.2,"rt":0.4709,"p":[[0,0],[0.346,0.0],[0.354,0.006],[0.381,0.017],[0.438,0.047],[0.461,0.094],[0.465,0.141],[0.465,0.188],[0.465,0.235],[0.465,0.283],[0.464,0.33],[0.463,0.377],[0.462,0.424],[0.461,0.471],[0.46,0.518],[0.46,0.565],[0.46,0.612],[0.46,0.659],[0.46,0.706],[0.46,0.753],[0.461,0.801],[0.461,0.848],[0.461,0.895],[0.461,0.942],[0.461,0.989],[0.462,1.036],[0.463,1.083],[0.463,1.13],[0.463,1.177],[0.463,1.224],[0.463,1.271],[0.463,1.319],[0.459,1.366],[0.455,1.413],[0.448,1.46],[0.442,1.507],[0.431,1.554],[0.416,1.601],[0.4,1.648],[0.385,1.695],[0.368,1.742],[0.35,1.789],[0.331,1.837],[0.314,1.884],[0.295,1.931],[0.277,1.978],[0.262,2.025],[0.247,2.072],[0.234,2.119],[0.222,2.166],[0.211,2.213],[0.203,2.26],[0.196,2.307],[0.191,2.355],[0.186,2.402],[0.183,2.449],[0.182,2.496],[0.185,2.543],[0.183,2.59],[0.182,2.637],[0.182,2.684],[0.182,2.731],[0.182,2.778],[0.182,2.825],[0.181,2.873],[0.179,2.92],[0.18,2.967],[0.194,3.014],[0.194,3.061],[0.182,3.108],[0.174,3.155],[0.136,3.181],[0.084,3.191],[0.051,3.198],[0,3.2]]},"krunk-white":{"h":3.2,"rt":0.4757,"p":[[0,0],[0.334,0.0],[0.344,0.006],[0.376,0.017],[0.44,0.047],[0.464,0.094],[0.469,0.141],[0.47,0.188],[0.47,0.235],[0.47,0.282],[0.47,0.329],[0.47,0.375],[0.47,0.422],[0.47,0.469],[0.47,0.516],[0.47,0.563],[0.47,0.61],[0.47,0.657],[0.47,0.704],[0.47,0.751],[0.47,0.798],[0.47,0.845],[0.47,0.892],[0.47,0.939],[0.47,0.986],[0.47,1.033],[0.47,1.079],[0.47,1.126],[0.47,1.173],[0.47,1.22],[0.467,1.267],[0.466,1.314],[0.463,1.361],[0.459,1.408],[0.452,1.455],[0.446,1.502],[0.436,1.549],[0.421,1.596],[0.406,1.643],[0.39,1.69],[0.372,1.737],[0.354,1.783],[0.333,1.83],[0.314,1.877],[0.295,1.924],[0.276,1.971],[0.259,2.018],[0.243,2.065],[0.229,2.112],[0.216,2.159],[0.206,2.206],[0.198,2.253],[0.19,2.3],[0.182,2.347],[0.178,2.394],[0.175,2.441],[0.172,2.487],[0.174,2.534],[0.173,2.581],[0.172,2.628],[0.171,2.675],[0.17,2.722],[0.17,2.769],[0.169,2.816],[0.169,2.863],[0.169,2.91],[0.168,2.957],[0.177,3.004],[0.183,3.051],[0.182,3.098],[0.17,3.145],[0.112,3.181],[0.042,3.191],[0.014,3.198],[0,3.2]]},"krunk-rose":{"h":3.2,"rt":0.4987,"p":[[0,0],[0.372,0.0],[0.379,0.006],[0.404,0.017],[0.463,0.047],[0.488,0.094],[0.493,0.141],[0.493,0.188],[0.493,0.235],[0.493,0.283],[0.493,0.33],[0.493,0.377],[0.493,0.424],[0.492,0.471],[0.492,0.518],[0.492,0.565],[0.492,0.612],[0.492,0.659],[0.492,0.706],[0.492,0.753],[0.493,0.801],[0.493,0.848],[0.493,0.895],[0.493,0.942],[0.493,0.989],[0.493,1.036],[0.493,1.083],[0.493,1.13],[0.493,1.177],[0.492,1.224],[0.491,1.271],[0.49,1.319],[0.488,1.366],[0.483,1.413],[0.475,1.46],[0.468,1.507],[0.457,1.554],[0.442,1.601],[0.424,1.648],[0.407,1.695],[0.388,1.742],[0.368,1.789],[0.347,1.837],[0.325,1.884],[0.304,1.931],[0.283,1.978],[0.264,2.025],[0.246,2.072],[0.232,2.119],[0.218,2.166],[0.207,2.213],[0.197,2.26],[0.188,2.307],[0.182,2.355],[0.177,2.402],[0.172,2.449],[0.17,2.496],[0.171,2.543],[0.171,2.59],[0.171,2.637],[0.171,2.684],[0.171,2.731],[0.17,2.778],[0.17,2.825],[0.17,2.873],[0.169,2.92],[0.168,2.967],[0.182,3.014],[0.183,3.061],[0.18,3.108],[0.168,3.155],[0.146,3.181],[0.101,3.191],[0.071,3.198],[0,3.2]]},"sis-red":{"h":3.2,"rt":0.4902,"p":[[0,0],[0.377,0.0],[0.384,0.006],[0.407,0.017],[0.456,0.047],[0.478,0.094],[0.485,0.141],[0.485,0.188],[0.485,0.235],[0.484,0.283],[0.484,0.33],[0.484,0.377],[0.484,0.424],[0.484,0.471],[0.484,0.518],[0.484,0.565],[0.484,0.612],[0.484,0.659],[0.484,0.706],[0.484,0.753],[0.484,0.801],[0.484,0.848],[0.484,0.895],[0.484,0.942],[0.484,0.989],[0.483,1.036],[0.484,1.083],[0.484,1.13],[0.484,1.177],[0.484,1.224],[0.484,1.271],[0.484,1.319],[0.484,1.366],[0.482,1.413],[0.478,1.46],[0.473,1.507],[0.466,1.554],[0.454,1.601],[0.437,1.648],[0.42,1.695],[0.402,1.742],[0.384,1.789],[0.364,1.837],[0.342,1.884],[0.32,1.931],[0.299,1.978],[0.278,2.025],[0.261,2.072],[0.243,2.119],[0.228,2.166],[0.214,2.213],[0.203,2.26],[0.194,2.307],[0.185,2.355],[0.178,2.402],[0.174,2.449],[0.171,2.496],[0.174,2.543],[0.174,2.59],[0.174,2.637],[0.173,2.684],[0.174,2.731],[0.173,2.778],[0.173,2.825],[0.172,2.873],[0.171,2.92],[0.17,2.967],[0.179,3.014],[0.182,3.061],[0.181,3.108],[0.172,3.155],[0.147,3.181],[0.102,3.191],[0.072,3.198],[0,3.2]]},"sis-white":{"h":3.2,"rt":0.4843,"p":[[0,0],[0.398,0.0],[0.406,0.006],[0.429,0.017],[0.466,0.047],[0.478,0.094],[0.479,0.141],[0.477,0.188],[0.478,0.235],[0.478,0.282],[0.478,0.329],[0.477,0.375],[0.478,0.422],[0.478,0.469],[0.478,0.516],[0.477,0.563],[0.477,0.61],[0.477,0.657],[0.477,0.704],[0.477,0.751],[0.477,0.798],[0.477,0.845],[0.477,0.892],[0.477,0.939],[0.477,0.986],[0.477,1.033],[0.477,1.079],[0.477,1.126],[0.477,1.173],[0.477,1.22],[0.478,1.267],[0.478,1.314],[0.475,1.361],[0.473,1.408],[0.468,1.455],[0.46,1.502],[0.451,1.549],[0.438,1.596],[0.421,1.643],[0.404,1.69],[0.381,1.737],[0.363,1.783],[0.341,1.83],[0.319,1.877],[0.297,1.924],[0.276,1.971],[0.257,2.018],[0.24,2.065],[0.224,2.112],[0.21,2.159],[0.197,2.206],[0.187,2.253],[0.178,2.3],[0.171,2.347],[0.166,2.394],[0.163,2.441],[0.161,2.487],[0.163,2.534],[0.162,2.581],[0.161,2.628],[0.161,2.675],[0.16,2.722],[0.16,2.769],[0.16,2.816],[0.16,2.863],[0.16,2.91],[0.16,2.957],[0.167,3.004],[0.173,3.051],[0.174,3.098],[0.16,3.145],[0.116,3.181],[0.053,3.191],[0.029,3.198],[0,3.2]]},"sis-rose":{"h":3.2,"rt":0.4666,"p":[[0,0],[0.356,0.0],[0.364,0.006],[0.39,0.017],[0.438,0.047],[0.455,0.094],[0.459,0.141],[0.459,0.188],[0.459,0.235],[0.459,0.283],[0.459,0.33],[0.459,0.377],[0.46,0.424],[0.46,0.471],[0.46,0.518],[0.46,0.565],[0.46,0.612],[0.459,0.659],[0.459,0.706],[0.459,0.753],[0.459,0.801],[0.459,0.848],[0.459,0.895],[0.459,0.942],[0.459,0.989],[0.459,1.036],[0.46,1.083],[0.459,1.13],[0.459,1.177],[0.46,1.224],[0.46,1.271],[0.46,1.319],[0.46,1.366],[0.458,1.413],[0.454,1.46],[0.45,1.507],[0.443,1.554],[0.432,1.601],[0.416,1.648],[0.402,1.695],[0.386,1.742],[0.366,1.789],[0.342,1.837],[0.322,1.884],[0.297,1.931],[0.278,1.978],[0.257,2.025],[0.239,2.072],[0.224,2.119],[0.209,2.166],[0.196,2.213],[0.186,2.26],[0.176,2.307],[0.168,2.355],[0.163,2.402],[0.157,2.449],[0.156,2.496],[0.156,2.543],[0.156,2.59],[0.156,2.637],[0.156,2.684],[0.155,2.731],[0.155,2.778],[0.154,2.825],[0.154,2.873],[0.154,2.92],[0.154,2.967],[0.163,3.014],[0.167,3.061],[0.167,3.108],[0.158,3.155],[0.147,3.181],[0.106,3.191],[0.077,3.198],[0,3.2]]},"fayton":{"h":3.0,"rt":0.3311,"p":[[0,0],[0.291,0.0],[0.295,0.006],[0.307,0.016],[0.323,0.044],[0.324,0.088],[0.324,0.132],[0.325,0.177],[0.325,0.221],[0.324,0.265],[0.324,0.309],[0.325,0.353],[0.324,0.397],[0.324,0.441],[0.324,0.486],[0.324,0.53],[0.325,0.574],[0.324,0.618],[0.324,0.662],[0.324,0.706],[0.324,0.751],[0.324,0.795],[0.324,0.839],[0.324,0.883],[0.324,0.927],[0.324,0.971],[0.324,1.015],[0.324,1.06],[0.324,1.104],[0.324,1.148],[0.324,1.192],[0.324,1.236],[0.324,1.28],[0.324,1.324],[0.324,1.369],[0.324,1.413],[0.324,1.457],[0.324,1.501],[0.324,1.545],[0.324,1.589],[0.324,1.633],[0.324,1.678],[0.324,1.722],[0.324,1.766],[0.324,1.81],[0.318,1.854],[0.304,1.898],[0.282,1.942],[0.25,1.987],[0.2,2.031],[0.153,2.075],[0.141,2.119],[0.141,2.163],[0.141,2.207],[0.141,2.252],[0.143,2.296],[0.143,2.34],[0.143,2.384],[0.143,2.428],[0.143,2.472],[0.143,2.516],[0.143,2.561],[0.143,2.605],[0.142,2.649],[0.141,2.693],[0.147,2.737],[0.149,2.781],[0.147,2.825],[0.145,2.87],[0.145,2.914],[0.145,2.958],[0.141,2.982],[0.102,2.992],[0.071,2.998],[0,3.0]]},"fin":{"h":3.0,"rt":0.3813,"p":[[0,0],[0.297,0.0],[0.302,0.006],[0.323,0.016],[0.364,0.044],[0.375,0.088],[0.375,0.132],[0.375,0.177],[0.375,0.221],[0.375,0.265],[0.375,0.309],[0.375,0.353],[0.375,0.397],[0.374,0.441],[0.374,0.486],[0.374,0.53],[0.374,0.574],[0.374,0.618],[0.374,0.662],[0.374,0.706],[0.374,0.751],[0.374,0.795],[0.374,0.839],[0.374,0.883],[0.374,0.927],[0.374,0.971],[0.374,1.015],[0.374,1.06],[0.374,1.104],[0.374,1.148],[0.374,1.192],[0.374,1.236],[0.374,1.28],[0.374,1.324],[0.374,1.369],[0.374,1.413],[0.374,1.457],[0.374,1.501],[0.374,1.545],[0.374,1.589],[0.374,1.633],[0.374,1.678],[0.374,1.722],[0.374,1.766],[0.374,1.81],[0.367,1.854],[0.36,1.898],[0.344,1.942],[0.319,1.987],[0.282,2.031],[0.224,2.075],[0.171,2.119],[0.155,2.163],[0.154,2.207],[0.154,2.252],[0.154,2.296],[0.154,2.34],[0.153,2.384],[0.153,2.428],[0.153,2.472],[0.153,2.516],[0.153,2.561],[0.153,2.605],[0.155,2.649],[0.168,2.693],[0.168,2.737],[0.168,2.781],[0.17,2.825],[0.172,2.87],[0.172,2.914],[0.172,2.958],[0.136,2.982],[0.088,2.992],[0.064,2.998],[0,3.0]]},"chisty":{"h":3.0,"rt":0.3452,"p":[[0,0],[0.282,0.0],[0.286,0.006],[0.303,0.016],[0.331,0.044],[0.337,0.088],[0.337,0.132],[0.337,0.177],[0.337,0.221],[0.337,0.265],[0.337,0.309],[0.337,0.353],[0.337,0.397],[0.337,0.441],[0.337,0.486],[0.337,0.53],[0.337,0.574],[0.337,0.618],[0.338,0.662],[0.338,0.706],[0.338,0.751],[0.338,0.795],[0.338,0.839],[0.338,0.883],[0.338,0.927],[0.338,0.971],[0.338,1.015],[0.338,1.06],[0.338,1.104],[0.338,1.148],[0.338,1.192],[0.338,1.236],[0.338,1.28],[0.338,1.324],[0.339,1.369],[0.339,1.413],[0.339,1.457],[0.339,1.501],[0.34,1.545],[0.34,1.589],[0.339,1.633],[0.34,1.678],[0.34,1.722],[0.339,1.766],[0.336,1.81],[0.325,1.854],[0.311,1.898],[0.288,1.942],[0.256,1.987],[0.21,2.031],[0.166,2.075],[0.146,2.119],[0.139,2.163],[0.138,2.207],[0.138,2.252],[0.138,2.296],[0.138,2.34],[0.138,2.384],[0.138,2.428],[0.138,2.472],[0.138,2.516],[0.138,2.561],[0.138,2.605],[0.137,2.649],[0.141,2.693],[0.15,2.737],[0.15,2.781],[0.149,2.825],[0.156,2.87],[0.156,2.914],[0.155,2.958],[0.129,2.982],[0.074,2.992],[0.039,2.998],[0,3.0]]},"north":{"h":3.0,"rt":0.3549,"p":[[0,0],[0.264,0.0],[0.268,0.006],[0.288,0.016],[0.334,0.044],[0.347,0.088],[0.347,0.132],[0.347,0.176],[0.347,0.221],[0.347,0.265],[0.347,0.309],[0.347,0.353],[0.347,0.397],[0.347,0.441],[0.348,0.485],[0.347,0.529],[0.347,0.574],[0.347,0.618],[0.347,0.662],[0.347,0.706],[0.347,0.75],[0.347,0.794],[0.347,0.838],[0.347,0.882],[0.347,0.926],[0.347,0.971],[0.347,1.015],[0.347,1.059],[0.348,1.103],[0.347,1.147],[0.347,1.191],[0.347,1.235],[0.347,1.279],[0.347,1.324],[0.348,1.368],[0.348,1.412],[0.349,1.456],[0.348,1.5],[0.349,1.544],[0.349,1.588],[0.349,1.632],[0.349,1.676],[0.349,1.721],[0.349,1.765],[0.349,1.809],[0.345,1.853],[0.335,1.897],[0.317,1.941],[0.293,1.985],[0.254,2.029],[0.198,2.074],[0.155,2.118],[0.144,2.162],[0.143,2.206],[0.143,2.25],[0.143,2.294],[0.143,2.338],[0.143,2.382],[0.143,2.426],[0.143,2.471],[0.144,2.515],[0.143,2.559],[0.143,2.603],[0.143,2.647],[0.155,2.691],[0.156,2.735],[0.158,2.779],[0.149,2.824],[0.159,2.868],[0.159,2.912],[0.158,2.956],[0.093,2.982],[0.057,2.992],[0.05,2.998],[0,3.0]]},"marsel":{"h":3.0,"rt":0.3552,"p":[[0,0],[0.261,0.0],[0.267,0.006],[0.288,0.016],[0.335,0.044],[0.348,0.088],[0.347,0.132],[0.347,0.177],[0.347,0.221],[0.347,0.265],[0.347,0.309],[0.347,0.353],[0.347,0.397],[0.347,0.441],[0.347,0.486],[0.347,0.53],[0.345,0.574],[0.345,0.618],[0.345,0.662],[0.345,0.706],[0.345,0.751],[0.345,0.795],[0.345,0.839],[0.343,0.883],[0.344,0.927],[0.344,0.971],[0.343,1.015],[0.343,1.06],[0.343,1.104],[0.343,1.148],[0.343,1.192],[0.343,1.236],[0.343,1.28],[0.343,1.324],[0.343,1.369],[0.342,1.413],[0.342,1.457],[0.342,1.501],[0.342,1.545],[0.342,1.589],[0.341,1.633],[0.341,1.678],[0.341,1.722],[0.341,1.766],[0.34,1.81],[0.335,1.854],[0.323,1.898],[0.305,1.942],[0.278,1.987],[0.236,2.031],[0.185,2.075],[0.154,2.119],[0.147,2.163],[0.145,2.207],[0.145,2.252],[0.145,2.296],[0.145,2.34],[0.145,2.384],[0.145,2.428],[0.145,2.472],[0.144,2.516],[0.143,2.561],[0.143,2.605],[0.143,2.649],[0.142,2.693],[0.151,2.737],[0.154,2.781],[0.153,2.825],[0.156,2.87],[0.155,2.914],[0.154,2.958],[0.121,2.982],[0.079,2.992],[0.063,2.998],[0,3.0]]},"shangal":{"h":3.15,"rt":0.3901,"p":[[0,0],[0.349,0.0],[0.352,0.006],[0.359,0.017],[0.379,0.046],[0.384,0.093],[0.384,0.139],[0.383,0.186],[0.383,0.232],[0.382,0.278],[0.381,0.325],[0.381,0.371],[0.381,0.417],[0.381,0.464],[0.38,0.51],[0.38,0.557],[0.38,0.603],[0.379,0.649],[0.379,0.696],[0.379,0.742],[0.379,0.789],[0.379,0.835],[0.379,0.881],[0.379,0.928],[0.378,0.974],[0.378,1.02],[0.378,1.067],[0.378,1.113],[0.378,1.16],[0.378,1.206],[0.377,1.252],[0.377,1.299],[0.377,1.345],[0.377,1.392],[0.376,1.438],[0.376,1.484],[0.376,1.531],[0.376,1.577],[0.376,1.623],[0.376,1.67],[0.376,1.716],[0.376,1.763],[0.374,1.809],[0.366,1.855],[0.35,1.902],[0.324,1.948],[0.294,1.995],[0.248,2.041],[0.197,2.087],[0.167,2.134],[0.158,2.18],[0.158,2.227],[0.158,2.273],[0.158,2.319],[0.158,2.366],[0.157,2.412],[0.157,2.458],[0.157,2.505],[0.157,2.551],[0.157,2.598],[0.157,2.644],[0.157,2.69],[0.157,2.737],[0.157,2.783],[0.163,2.83],[0.166,2.876],[0.165,2.922],[0.167,2.969],[0.166,3.015],[0.166,3.061],[0.164,3.108],[0.144,3.131],[0.102,3.142],[0.075,3.148],[0,3.15]]},"hayanist":{"h":2.55,"rt":0.8122,"p":[[0,0],[0.489,0.0],[0.495,0.008],[0.51,0.022],[0.533,0.059],[0.551,0.119],[0.569,0.178],[0.587,0.237],[0.603,0.297],[0.619,0.356],[0.634,0.416],[0.647,0.475],[0.661,0.534],[0.674,0.594],[0.688,0.653],[0.701,0.712],[0.713,0.772],[0.725,0.831],[0.736,0.89],[0.746,0.95],[0.756,1.009],[0.765,1.069],[0.773,1.128],[0.781,1.187],[0.786,1.247],[0.794,1.306],[0.799,1.365],[0.802,1.425],[0.803,1.484],[0.803,1.543],[0.794,1.603],[0.677,1.662],[0.483,1.722],[0.313,1.781],[0.24,1.84],[0.221,1.9],[0.217,1.959],[0.213,2.018],[0.213,2.078],[0.211,2.137],[0.216,2.197],[0.242,2.256],[0.226,2.315],[0.247,2.375],[0.297,2.434],[0.229,2.493],[0.167,2.526],[0.112,2.539],[0.074,2.547],[0,2.55]]}};
+const bottle = new THREE.Group();
+scene.add(bottle);
+const HERO_ID = 'sis-red';
+const loader = new THREE.TextureLoader(), geos = {}, texs = {};
+function half(d, flat, back) {
+  const g = new THREE.LatheGeometry(d.p.map((q) => new THREE.Vector2(q[0], q[1])), 56, back ? Math.PI / 2 : -Math.PI / 2, Math.PI);
+  const pos = g.attributes.position, uv = g.attributes.uv, nor = g.attributes.normal, v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    uv.setXY(i, 0.5 + (back ? -x : x) / (2 * d.rt), pos.getY(i) / d.h);   // front: exactly as photographed; back: the same face again, never mirrored
+    if (flat !== 1) { pos.setZ(i, pos.getZ(i) * flat); v.set(nor.getX(i), nor.getY(i), nor.getZ(i) / flat).normalize(); nor.setXYZ(i, v.x, v.y, v.z); }
+  }
+  return g;
+}
+function geoOf(id) {
+  if (!geos[id]) { const d = PROF[id], flat = id === 'hayanist' ? 0.46 : 1; geos[id] = [half(d, flat, false), half(d, flat, true)]; }   // the cognac comes in a flat flask
+  return geos[id];
+}
+const TEX = SA.mobile ? 'tex/s/' : 'tex/';
+function texOf(id) {
+  if (!texs[id]) { const t = loader.load(TEX + id + '.jpg'); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); texs[id] = t; }
+  return texs[id];
+}
+const photoMat = new THREE.MeshPhysicalMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: texOf('sis-red'), roughness: 0.3, metalness: 0, clearcoat: 0.5, clearcoatRoughness: 0.1, envMapIntensity: 0.35 });
+const photoF = new THREE.Mesh(geoOf('sis-red')[0], photoMat), photoB = new THREE.Mesh(geoOf('sis-red')[1], photoMat);
+const photo = new THREE.Group(); photo.add(photoF, photoB);
+
+const shadowC = document.createElement('canvas'); shadowC.width = shadowC.height = 128;
+{ const g = shadowC.getContext('2d'); const gr = g.createRadialGradient(64, 64, 4, 64, 64, 64); gr.addColorStop(0, 'rgba(0,0,0,.75)'); gr.addColorStop(0.5, 'rgba(0,0,0,.28)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 3.4), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shadowC), transparent: true, depthWrite: false, toneMapped: false, opacity: 0.55 }));
+shadow.rotation.x = -Math.PI / 2; shadow.position.y = -0.01;
+bottle.add(photo, shadow);
+Object.keys(PROF).forEach(texOf);
+
+const HERO = HERO_ID;
+const CH = [
+  { bg: '#18211C', glow: '#4a3328', word: 'Սիս Ալկո', wcol: '#C4836C', hero: true },
+  { bg: '#22141A', glow: '#6b2230', word: 'Կռունկ', wcol: '#37212B' },
+  { bg: '#171311', glow: '#5a3f22', word: 'Սիս', wcol: '#2B231D' },
+  { bg: '#131B21', glow: '#345064', word: 'Օղի', wcol: '#1E2B35' },
+  { bg: '#21160F', glow: '#8a5220', word: 'Հայանիստ', wcol: '#35251A' }
+];
+const chOf = (id) => (id === 'hayanist' ? 4 : id.startsWith('krunk') ? 1 : id.startsWith('sis') ? 2 : 3);
+
+/* ---------- the giant word ---------- */
+let word = { text: '', t: 1, layout: null }, wordNext = null;
+function wordLayout(ch) {
+  const s = small(), w = SA.tr ? SA.tr(ch.word) : ch.word;
+  if (SA.prod) return s ? { lines: [w], cx: 0.5, cy: 0.26, maxW: 1.1, maxH: 0.2 } : { lines: [w], cx: 0.29, cy: 0.5, maxW: 0.54, maxH: 0.5 };
+  if (ch.hero) return s ? { lines: w.split(' '), cx: 0.5, cy: 0.42, maxW: 0.92, maxH: 0.24 } : { lines: [w], cx: 0.5, cy: 0.47, maxW: 0.9, maxH: 0.5 };
+  return s ? { lines: [w], cx: 0.5, cy: 0.3, maxW: 1.1, maxH: 0.2 } : { lines: [w], cx: 0.7, cy: 0.5, maxW: 0.54, maxH: 0.5 };
+}
+const easeOut = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 4);
+function drawWord() {
+  const W = mask.width, H = mask.height, L = word.layout;
+  mctx.fillStyle = '#000'; mctx.fillRect(0, 0, W, H);
+  if (!L) { maskTex.needsUpdate = true; return; }
+  let size = L.maxH * H;
+  const font = (s) => `500 ${s}px "Noto Serif Armenian", "Noto Serif", serif`;
+  mctx.font = font(size);
+  const widest = Math.max(...L.lines.map((l) => mctx.measureText(l).width));
+  if (widest > L.maxW * W) size *= (L.maxW * W) / widest;
+  mctx.font = font(size); mctx.fillStyle = '#fff'; mctx.textBaseline = 'alphabetic'; mctx.textAlign = 'left';
+  const lh = size * 0.98, total = lh * L.lines.length;
+  let n = 0; const count = L.lines.join('').length;
+  L.lines.forEach((line, li) => {
+    const lw = mctx.measureText(line).width, x0 = L.cx * W - lw / 2;
+    const base = L.cy * H - total / 2 + lh * li + size * 0.78;
+    mctx.save(); mctx.beginPath(); mctx.rect(0, base - size * 0.92, W, size * 1.2); mctx.clip();
+    let acc = '';
+    for (const chr of Array.from(line)) {
+      const e = SA.reduce ? 1 : easeOut(word.t * (1 + count * 0.09) - n * 0.09);
+      const xw = mctx.measureText(acc).width;
+      if (chr.trim()) mctx.fillText(chr, x0 + xw, base + (1 - e) * size * 1.25);
+      acc += chr; n++;
+    }
+    mctx.restore();
+  });
+  maskTex.needsUpdate = true;
+}
+function setWord(ch) { wordNext = { text: ch.word, ch }; }
+
+/* ---------- state ---------- */
+const cur = {
+  bg: new THREE.Color(CH[0].bg), glow: new THREE.Color(CH[0].glow), wcol: new THREE.Color(CH[0].wcol), wA: 0,
+  x: 0, y: -6, s: 1, spin: 0, h: PROF[HERO].h
+};
+let targetId = HERO, shownId = HERO, chap = CH[0], pending = null, spinTarget = 0;
+const tmp = new THREE.Color();
+
+function apply(id) { shownId = id; const g = geoOf(id); photoF.geometry = g[0]; photoB.geometry = g[1]; photoMat.emissiveMap = texOf(id); }
+function setProduct(id) {
+  if (!PROF[id]) id = HERO;
+  targetId = id;
+  if (id === shownId) { pending = null; return; }
+  pending = id;
+  if (SA.reduce) { apply(id); pending = null; }
+  else if (spinTarget - cur.spin < Math.PI * 2.2) spinTarget += Math.PI * 2;
+}
+SA.onChapter = (i) => { if (!intro.done && !intro.handed) return; chap = CH[i] || CH[0]; setWord(chap); setProduct(i === 0 ? HERO : SA.variant[i]); };
+SA.onVariant = (id) => setProduct(id);
+SA.kick = (dir) => { cur.x += dir * 1.1; };
+let userRot = 0, userCur = 0;
+SA.dragBy = (d) => { userRot += d; };
+SA.onProd = (id) => {
+  userRot = 0;
+  if (id) { chap = CH[chOf(id)]; setWord(chap); setProduct(id); }
+  else { chap = CH[SA.chapter] || CH[0]; setWord(chap); setProduct(SA.chapter ? SA.variant[SA.chapter] : HERO); }
+};
+SA.onLang = () => { document.fonts.load('500 120px "Noto Serif"', 'Жw').catch(() => {}).then(() => setWord(chap)); };
+
+/* catalogue pictures: each bottle photographed once on its own backdrop */
+SA.makeThumbs = async (onThumb) => {
+  if (SA.thumbsDone || SA.busy) return;
+  SA.busy = true;
+  await Promise.all(Object.keys(PROF).map((id) => new Promise((res) => { const t = texOf(id); if (t.image && t.image.complete) res(); else { const iv = setInterval(() => { if (t.image && t.image.complete) { clearInterval(iv); res(); } }, 60); setTimeout(() => { clearInterval(iv); res(); }, 8000); } })));
+  const W = 420, H = 560, tf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  renderer.setPixelRatio(2); renderer.setSize(W, H, false);
+  camera.aspect = W / H; camera.updateProjectionMatrix();
+  backdrop.scale.set(2 * tf * BD * camera.aspect, 2 * tf * BD, 1);
+  U.uAspect.value = camera.aspect; U.uTextA.value = 0; U.uOff.value.set(0, 0); U.uGlowPos.value.set(0.5, 0.52); U.uGlowR.value = 0.5;
+  camera.position.set(0, 1.95, 9); camera.lookAt(0, 1.6, 0);
+  const keep = shownId, vis = bottle.visible; bottle.visible = true;
+  for (const id of Object.keys(PROF)) {
+    const d = PROF[id], c = CH[chOf(id)], sc = Math.min(3.95 / d.h, 1.4);
+    apply(id);
+    bottle.scale.setScalar(sc); bottle.position.set(0, 1.6 - d.h * sc / 2, 0); bottle.rotation.set(0, -0.06, 0);
+    U.uBg.value.set(c.bg); U.uGlow.value.set(c.glow).multiplyScalar(0.6);
+    renderer.render(scene, camera);
+    onThumb(id, renderer.domElement.toDataURL('image/jpeg', 0.9));
+    await new Promise((r) => setTimeout(r, 0));
+  }
+  apply(pending || keep); pending = null; bottle.visible = vis;
+  resize();
+  SA.thumbsDone = true; SA.busy = false;
+};
+SA.onEnter = () => { word = { text: CH[0].word, t: 0, layout: wordLayout(CH[0]) }; };
+
+let view = { w: 8, h: 4.8 };
+function resize() {
+  const w = host.clientWidth || innerWidth, h = host.clientHeight || innerHeight;   // the stage is hidden while the catalogue is open
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small() ? 1.5 : 2));
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  const t = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  view = { h: 2 * t * 9, w: 2 * t * 9 * camera.aspect };
+  backdrop.scale.set(2 * t * BD * camera.aspect, 2 * t * BD, 1);
+  U.uAspect.value = camera.aspect;
+  mask.width = Math.min(2048, Math.round(w * Math.min(devicePixelRatio || 1, 2)));
+  mask.height = Math.round(mask.width * h / w);
+  maskTex.dispose();
+  if (word.text) { word.layout = wordLayout(CH.find((c) => c.word === word.text) || CH[0]); }
+  drawWord();
+}
+addEventListener('resize', resize);
+SA.resize = resize;
+
+let mx = 0, my = 0, smx = 0, smy = 0;
+addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') { mx = (e.clientX / innerWidth) * 2 - 1; my = (e.clientY / innerHeight) * 2 - 1; } }, { passive: true });
+
+function layout() {
+  const ch = SA.chapter, s = small();
+  if (!SA.entered) return { x: 0, cy: -6, s: s ? 0.72 : 1 };
+  if (SA.prod) return s ? { x: 0, cy: 1.0, s: 0.5 } : { x: -view.w * 0.21, cy: -0.02, s: 1.02 };
+  if (ch === 0) return { x: 0, cy: s ? 0.32 : 0.06, s: s ? 0.7 : 1.04 };
+  if (s) return { x: 0, cy: 0.95, s: 0.52 };
+  return { x: view.w * 0.2, cy: -0.05, s: 0.98 };
+}
+
+await Promise.all([document.fonts.load('500 120px "Noto Serif Armenian"'), document.fonts.load('400 40px "Noto Sans Armenian"')]).catch(() => {});
+resize();
+if (SA.entered) SA.onEnter();
+if (SA.chapter) SA.onChapter(SA.chapter);
+
+const bandEl = document.getElementById('band'), mShowEl = document.getElementById('m-show');
+const chEls = [document.getElementById('hero'), ...[1, 2, 3, 4].map((i) => document.getElementById('ch-' + i))];
+const clock = new THREE.Clock();
+
+/* ---------- opening: every bottle leaves one point, lines up, comes closer; then the first one stays ---------- */
+const intro = { done: SA.reduce, on: false, handed: false, wait: 0, t: 0, items: [] };
+bottle.visible = intro.done;
+if (!intro.done) Object.keys(PROF).forEach((id, i) => {
+  const g = new THREE.Group(), geo = geoOf(id), mat = photoMat.clone(); mat.emissiveMap = texOf(id);
+  g.add(new THREE.Mesh(geo[0], mat), new THREE.Mesh(geo[1], mat)); g.visible = false; scene.add(g);
+  intro.items.push({ id, g, mat, i });
+});
+const eOut = (x) => 1 - Math.pow(1 - THREE.MathUtils.clamp(x, 0, 1), 4);
+const eIO = (x) => { x = THREE.MathUtils.clamp(x, 0, 1); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+function introSlots() {
+  const n = intro.items.length, rows = small() ? 2 : 1, per = Math.ceil(n / rows);
+  const sp = view.w * (small() ? 0.96 : 0.9) / per, s = Math.min(sp / 1.0, 0.62), rowH = 3.25 * s + 0.22;
+  intro.items.forEach((it) => {
+    const r = Math.floor(it.i / per), c = it.i % per, cnt = r === rows - 1 ? n - per * (rows - 1) : per;
+    it.s = s; it.x = (c - (cnt - 1) / 2) * sp; it.y = 1.6 + ((rows - 1) / 2 - r) * rowH - 1.6 * s;
+  });
+}
+function introEnd(played) {
+  if (intro.done) return;
+  intro.done = true; bottle.visible = true;
+  intro.items.forEach((it) => { scene.remove(it.g); it.mat.dispose(); });
+  if (!played) { chap = CH[SA.chapter] || CH[0]; setWord(chap); if (SA.prod) SA.onProd(SA.prod); else setProduct(SA.chapter ? SA.variant[SA.chapter] : HERO); }
+  if (SA.endIntro) SA.endIntro();
+}
+function introTick(dt) {
+  if (!SA.entered) return;
+  if (SA.skipIntro || (SA.view && SA.view !== 'main')) { introEnd(false); return; }
+  if (!intro.on) {
+    intro.wait += dt;
+    const ready = intro.items.every((it) => { const im = it.mat.emissiveMap.image; return im && im.complete && im.naturalWidth; });
+    if (intro.wait < 0.6 || (!ready && intro.wait < 4)) return;
+    intro.on = true; introSlots(); intro.items.forEach((it) => { it.g.visible = true; });
+  }
+  intro.t += dt;
+  const T = intro.t, EXIT = 3.3, feat = SA.variant[SA.chapter || 1] || 'krunk-red';
+  for (const it of intro.items) {
+    if (!it.g.visible) continue;
+    const d = it.i * 0.05, a = eOut((T - d) / 1.2), b = eIO((T - 1.1 - d * 0.5) / 1.5), out = T > EXIT ? Math.pow((T - EXIT) / 0.9, 3) : 0;
+    const s = it.s * (0.3 + 0.7 * a), y0 = 1.6 - PROF[it.id].h * s / 2;
+    it.g.position.set(it.x * a + (it.x < 0 ? -1 : 1) * out * view.w * 1.2, y0 + (it.y - y0) * a, -18 + 18 * b);
+    it.g.scale.setScalar(s);
+    it.g.rotation.y = (1 - b) * Math.PI * 2 * (it.i % 2 ? 1 : -1);
+  }
+  if (!intro.handed && T > EXIT) {
+    intro.handed = true;
+    const it = intro.items.find((q) => q.id === feat) || intro.items[0];
+    apply(it.id); targetId = it.id; pending = null; cur.spin = spinTarget;
+    cur.s = it.s; cur.x = it.x; cur.h = PROF[it.id].h; cur.y = it.y - 1.6 + cur.h / 2 * cur.s;
+    it.g.visible = false; bottle.visible = true;
+    chap = CH[SA.chapter] || CH[1]; setWord(chap);
+    if (SA.endIntro) SA.endIntro();
+  }
+  if (T > EXIT + 1) introEnd(true);
+}
+const mix = (a, b, k) => a + (b - a) * k;
+
+function frame() {
+  requestAnimationFrame(frame);
+  const raw = clock.getDelta(), dt = Math.min(raw, 0.05), t = clock.elapsedTime;
+  if (SA.busy || SA.cat) return;
+  if (bandEl.getBoundingClientRect().top < 0) return;   // stage is covered
+  const k = 1 - Math.pow(0.004, dt), kS = 1 - Math.pow(0.03, dt);
+
+  /* word */
+  if (wordNext) {
+    cur.wA = mix(cur.wA, 0, 1 - Math.pow(0.00002, dt));
+    if (cur.wA < 0.02 || word.text === '') { word = { text: wordNext.text, t: 0, layout: wordLayout(wordNext.ch) }; wordNext = null; }
+  } else if (word.text) cur.wA = mix(cur.wA, 1, kS * 2);
+  if (word.t < 1 && word.text && !wordNext) { word.t = Math.min(1, word.t + dt / 1.5); drawWord(); }
+  const el = (SA.mobile && SA.chapter ? mShowEl : chEls[SA.chapter]) || chEls[0], r = el.getBoundingClientRect();
+  if (SA.prod) U.uOff.value.set(0, 0);
+  else if (chap.hero) U.uOff.value.set(0, scrollY / innerHeight);
+  else { const c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; U.uOff.value.set(c * 0.12, -c * 0.55); }
+
+  /* colours */
+  cur.bg.lerp(tmp.set(chap.bg), kS); cur.glow.lerp(tmp.set(chap.glow), kS); cur.wcol.lerp(tmp.set(chap.wcol), kS * 2);
+  U.uBg.value.copy(cur.bg); U.uGlow.value.copy(cur.glow).multiplyScalar(0.55); U.uTextCol.value.copy(cur.wcol); U.uTextA.value = cur.wA; U.uTime.value = t;
+
+  /* spin: one full turn per change, the label swaps while it faces away */
+  cur.spin = mix(cur.spin, spinTarget, 1 - Math.pow(0.012, dt));
+  if (pending && (Math.cos(cur.spin) < -0.25 || spinTarget - cur.spin < 0.6)) { apply(pending); pending = null; }
+  cur.h = mix(cur.h, PROF[shownId].h, k);
+
+  /* placement */
+  const lay = layout();
+  smx = mix(smx, mx, kS); smy = mix(smy, my, kS);
+  cur.x = mix(cur.x, lay.x, kS); cur.y = mix(cur.y, lay.cy, kS * 0.8); cur.s = mix(cur.s, lay.s, kS);
+  const float = SA.reduce ? 0 : Math.sin(t * 0.8) * 0.03;
+  bottle.position.set(cur.x, 1.6 + cur.y - cur.h / 2 * cur.s + float, 0);
+  bottle.scale.setScalar(cur.s);
+  const baseRot = small() ? 0 : SA.prod ? 0.14 : SA.chapter === 0 ? 0 : -0.16;
+  userCur = mix(userCur, SA.prod ? userRot : 0, kS * 3);
+  bottle.rotation.y = baseRot + cur.spin + userCur + (SA.reduce ? 0 : smx * 0.32 + Math.sin(t * 0.35) * 0.07);
+  bottle.rotation.z = SA.reduce ? 0 : -smx * 0.035;
+  bottle.rotation.x = SA.reduce ? 0 : smy * 0.03;
+
+  /* glow follows the bottle on screen */
+  const gx = 0.5 + bottle.position.x / view.w, gy = 0.5 + (bottle.position.y + cur.h * 0.47 * cur.s - 1.6) / view.h;
+  U.uGlowPos.value.set(gx, gy); U.uGlowR.value = small() ? 0.3 : 0.4;
+  if (!intro.done) { introTick(Math.min(raw, 0.2)); if (!intro.handed) { U.uGlowPos.value.set(0.5, 0.5); U.uGlowR.value = 0.55; } }
+
+  camera.position.set(SA.reduce ? 0 : smx * 0.25, 1.95 - (SA.reduce ? 0 : smy * 0.12), 9);
+  camera.lookAt(0, 1.6, 0);
+  renderer.render(scene, camera);
+}
+frame();
+SA.glReady = true;
+if (SA.wantThumbs) SA.makeThumbs(SA.setThumb);
+if (SA.prod) SA.onProd(SA.prod);
+if (SA.lang && SA.lang !== 'hy') SA.onLang();
+</script>

@@ -1,0 +1,4 @@
+node_modules/
+test/out*/
+*.png.tmp
+.DS_Store
