@@ -33,30 +33,18 @@ button{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- age gate / curtain ---------- */
-#gate{position:fixed;inset:0;z-index:100;background:#2A2326;overflow:hidden;text-align:center}
-#gate.open{background:transparent}
-#gate.open .gt-scene,#gate.open .gt-env{transition:none}
-/* the surroundings: the same photo, soft and dark, so the gate stands in its own street */
-.gt-env{position:absolute;inset:-60px;background:#1A1F1D url(gate.jpg) center 40%/cover no-repeat;filter:blur(28px) brightness(.42) saturate(.9);opacity:0;transition:opacity .6s}
-/* the whole gate is always visible (contained, never cropped) */
-.gt-scene{position:absolute;--w:min(94vw, 114.9vh);--h:min(76.9vw, 94vh);width:var(--w);height:var(--h);left:calc(50% - var(--w) / 2);top:calc(50% - var(--h) / 2);perspective:2600px;perspective-origin:50% 55%;opacity:0;transition:opacity .6s;transform-origin:50% 62%}
-#gate.ready .gt-scene,#gate.ready .gt-env{opacity:1}
-.gt-bg,.gt-face,.gt-leaf,.gt-light{position:absolute;inset:0}
-.gt-bg{background:url(gate-bg.webp) 0 0/100% 100% no-repeat;box-shadow:0 30px 80px rgba(0,0,0,.35)}
-/* warm light from inside the yard, seen as the leaves part */
-.gt-light{clip-path:polygon(6.82% 98.15%,6.82% 30.09%,30.68% 29.17%,50% 24.26%,69.32% 29.17%,93.33% 30.09%,93.33% 98.15%);background:radial-gradient(60% 70% at 50% 70%, rgba(236,190,130,.55), rgba(40,30,24,.0) 70%);opacity:0}
-.gt-leaf{transform-style:preserve-3d;will-change:transform}
-.gt-leaf.l{transform-origin:6.82% 50%}
-.gt-leaf.r{transform-origin:93.33% 50%}
-.gt-face{background:#1E2120 url(gate.jpg) 0 0/100% 100% no-repeat;backface-visibility:hidden;filter:brightness(1)}
-.gt-leaf.l .gt-face{clip-path:polygon(6.82% 98.15%,6.82% 30.09%,17.05% 30.09%,17.05% 32.41%,22.73% 32.41%,23.11% 31.48%,30.68% 31.48%,30.68% 29.17%,37.88% 26.39%,50.06% 24.26%,50.06% 98.15%)}
-.gt-leaf.r .gt-face{clip-path:polygon(49.94% 24.26%,62.12% 26.39%,69.32% 29.17%,69.32% 31.48%,76.89% 31.48%,77.27% 32.41%,83.33% 32.41%,83.33% 30.09%,93.33% 30.09%,93.33% 98.15%,49.94% 98.15%)}
-/* the thickness of the iron leaf, visible on its free edge as it turns */
-.gt-edge{position:absolute;top:24.6%;height:73.55%;width:1.5%;background:linear-gradient(90deg,#0d0f0e,#3a3d3b 45%,#151716);backface-visibility:visible}
-.gt-leaf.l .gt-edge{left:50.06%;transform-origin:0 50%;transform:rotateY(90deg)}
-.gt-leaf.r .gt-edge{right:50.06%;transform-origin:100% 50%;transform:rotateY(-90deg)}
-.gt-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top, rgba(30,20,24,.35), rgba(30,20,24,0) 38%)}
-@media (max-width:760px) and (orientation:portrait){.gt-scene{--w:100vw;--h:81.82vw;top:max(64px, calc((100svh - 210px - var(--h)) / 2))}#gate.known .gt-scene{top:calc(50% - var(--h) / 2)}}
+#gate{position:fixed;inset:0;z-index:100;background:var(--bg);overflow:hidden;text-align:center}
+/* the gate film: full screen on wide screens; on phones a band cropped to the gate itself, with the question below it */
+.gt-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;background:#2A2326;opacity:0;transition:opacity .5s}
+#gate.ready .gt-video{opacity:1}
+.gt-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top, rgba(30,20,24,.4), rgba(30,20,24,0) 40%);transition:opacity .6s}
+#gate.open .gt-shade{opacity:0}
+@media (max-width:760px) and (orientation:portrait){
+  #gate{display:flex;flex-direction:column;justify-content:center;gap:20px}
+  .gt-video{position:relative;inset:auto;flex:none;width:128vw;max-width:none;height:72.92vw;margin-left:-14vw}
+  .gt-shade{display:none}
+  html #gate .inner{position:static;transform:none;align-self:center;background:none;border:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding-block:0}
+}
 #gate .inner{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(520px, calc(100% - 32px));display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 24px 18px;background:rgba(249,247,242,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(61,48,40,.12);box-shadow:0 20px 50px rgba(30,20,24,.18)}
 #gate.known .inner{display:none}
 #gate .brand{display:flex;align-items:center;gap:12px}
@@ -426,8 +414,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
 
 <!-- age gate & curtain -->
 <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-  <div class="gt-env" aria-hidden="true"></div>
-  <div class="gt-scene" aria-hidden="true"><div class="gt-light"></div><div class="gt-leaf l"><div class="gt-face"></div><div class="gt-edge"></div></div><div class="gt-leaf r"><div class="gt-face"></div><div class="gt-edge"></div></div><div class="gt-bg"></div></div>
+  <video class="gt-video" id="gt-video" muted playsinline preload="auto" poster="gate-poster.jpg" aria-hidden="true" tabindex="-1"><source src="gate.mp4" type="video/mp4"></video>
   <div class="gt-shade"></div>
   <div class="inner">
     <div class="brand"><img src="logo.png" alt="" width="108" height="110"><h1 id="gate-title">Սիս Ալկո</h1></div>
@@ -1364,36 +1351,35 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   }
 
   /* entrance after the gate */
-  /* the gate photo must be on screen before it can open */
+  /* the gate must be on screen before it can open */
+  var gateEl = document.getElementById('gate'), vid = document.getElementById('gt-video');
   var gateReady = new Promise(function(res){
-    var n = 0, done = function(){ if (++n === 2) res(); };
-    ['gate.jpg', 'gate-bg.webp'].forEach(function(u){ var im = new Image(); im.onload = im.onerror = done; im.src = u; });
-    setTimeout(res, 4000);
-  }).then(function(){ document.getElementById('gate').classList.add('ready'); });
-  function enter(){ gateReady.then(function(){ setTimeout(enterNow, document.getElementById('gate').classList.contains('known') ? 900 : 0); }); }
+    var im = new Image(); im.onload = im.onerror = res; im.src = 'gate-poster.jpg'; setTimeout(res, 4000);
+  }).then(function(){ gateEl.classList.add('ready'); });
+  function enter(){ gateReady.then(function(){ setTimeout(enterNow, gateEl.classList.contains('known') ? 700 : 0); }); }
   function enterNow(){
-    if (!introOn) lock(false); else setTimeout(SA.endIntro, 12000);
-    var gate = document.getElementById('gate');
-    if (window.gsap && !reduce) {
-      gsap.timeline()
-        .to('#gate .inner', { opacity: 0, y: 16, duration: 0.4, ease: 'power2.in' })
-        .add(function(){ gate.classList.add('open'); })
-        /* the latch gives: a small heavy nudge, then the leaves swing in slowly */
-        .to('.gt-leaf.l', { rotationY: 2.2, duration: 0.35, ease: 'power2.out' })
-        .to('.gt-leaf.r', { rotationY: -2.2, duration: 0.35, ease: 'power2.out' }, '<')
-        .to('.gt-light', { opacity: 0.6, duration: 0.5 }, '<')
-        .to('.gt-leaf.l', { rotationY: 78, duration: 2.6, ease: 'power2.inOut' }, '+=0.12')
-        .to('.gt-leaf.r', { rotationY: -78, duration: 2.6, ease: 'power2.inOut' }, '<')
-        .to('.gt-face', { filter: 'brightness(0.55)', duration: 2.6, ease: 'power1.in' }, '<')
-        .to('.gt-light', { opacity: 1, duration: 1.2 }, '<')
-        .add(function(){ SA.entered = true; if (SA.onEnter) SA.onEnter(); }, '<0.5')
-        .to('.gt-env', { opacity: 0, duration: 1.4, ease: 'power1.inOut' }, '<0.6')
-        .to('.gt-light', { opacity: 0, duration: 1.2 }, '<0.6')
-        /* walk through */
-        .to('.gt-scene', { scale: 1.32, duration: 1.6, ease: 'power2.in' }, '-=1.2')
-        .to(['.gt-scene', '.gt-shade'], { opacity: 0, duration: 0.7, ease: 'power1.in' }, '-=0.7')
-        .add(function(){ gate.hidden = true; });
-    } else { gate.hidden = true; SA.entered = true; if (SA.onEnter) SA.onEnter(); }
+    if (!introOn) lock(false); else setTimeout(SA.endIntro, 16000);
+    var finished = false;
+    /* the film ends in warm light: the site (same cream ground) fades in through it */
+    function finish(fast){
+      if (finished) return; finished = true;
+      SA.entered = true; if (SA.onEnter) SA.onEnter();
+      if (fast) { gateEl.hidden = true; return; }
+      gateEl.style.transition = 'opacity .9s ease'; gateEl.style.opacity = '0'; gateEl.style.pointerEvents = 'none';
+      setTimeout(function(){ gateEl.hidden = true; try { vid.pause(); } catch (e) {} }, 950);
+    }
+    if (reduce || !vid || !vid.play) { finish(true); return; }
+    var inner = gateEl.querySelector('.inner'); inner.style.transition = 'opacity .4s'; inner.style.opacity = '0';
+    gateEl.classList.add('open');
+    vid.addEventListener('timeupdate', function(){ if (vid.currentTime >= 4.3) finish(); });
+    vid.addEventListener('ended', function(){ finish(); });
+    vid.addEventListener('error', function(){ finish(); });
+    var src = vid.querySelector('source'); if (src) src.addEventListener('error', function(){ finish(); });
+    setTimeout(function(){ if (vid.currentTime < 0.05) finish(); }, 4000);   /* never started: no film, just walk in */
+    setTimeout(function(){ finish(); }, 11000);
+    setTimeout(function(){
+      try { vid.currentTime = 0; var p = vid.play(); if (p && p.catch) p.catch(function(){ finish(); }); } catch (e) { finish(); }
+    }, 350);
   }
 
   var accepted = false;
