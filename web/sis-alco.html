@@ -255,7 +255,9 @@ html.intro header.top, html.intro .chapter .panel, html.intro .m-sheet, html.int
 @media (max-width:760px){
   #story{padding:0;align-items:stretch}
   .st-box{grid-template-columns:1fr;grid-template-rows:auto 1fr;border:none;max-width:none;overflow-y:auto}
-  .st-img img{height:46svh;max-height:none}
+  .st-img{position:relative;overflow:hidden;display:flex;justify-content:center;padding-top:calc(56px + env(safe-area-inset-top,0px))}
+  .st-img::before{content:"";position:absolute;inset:-30px;background:var(--st-ph) center/cover;filter:blur(24px) brightness(.45);transform:scale(1.1)}
+  .st-img img{position:relative;width:auto;max-width:100%;height:56svh;max-height:none;object-fit:contain;box-shadow:0 10px 40px rgba(0,0,0,.5)}
   .st-txt{padding:28px 20px calc(24px + env(safe-area-inset-bottom,0px));overflow:visible}
   .st-txt .ask-x{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;background:rgba(10,14,12,.7);color:#fff;border-radius:2px}
 }
@@ -1017,7 +1019,18 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   /* catalogue: a separate page behind #catalog */
   var catView = document.getElementById('catalog-view'), mainEl = document.querySelector('main'), stageEl = document.getElementById('stage');
   var savedY = 0, afterMain = null, catBuilt = false;
-  function setScroll(y){ if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y); }
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var pinT = [];
+  function setScroll(y){
+    pinT.forEach(clearTimeout); pinT = [];
+    var de = document.documentElement, snap = de.style.scrollSnapType;
+    function put(){ if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else { de.style.scrollBehavior = 'auto'; window.scrollTo(0, y); } }
+    de.style.scrollSnapType = 'none'; put();
+    /* a phone may still be finishing a flick or a smooth snap: pin the position for a moment unless the person touches the screen */
+    var touched = false; function stop(){ touched = true; } window.addEventListener('touchstart', stop, { once: true, passive: true }); window.addEventListener('wheel', stop, { once: true, passive: true });
+    [16, 80, 200, 400].forEach(function(ms){ pinT.push(setTimeout(function(){ if (!touched && Math.abs(window.scrollY - y) > 2) put(); }, ms)); });
+    pinT.push(setTimeout(function(){ de.style.scrollSnapType = snap; de.style.scrollBehavior = ''; window.removeEventListener('touchstart', stop); window.removeEventListener('wheel', stop); }, 460));
+  }
   function toMain(fn){ if (!SA.view || SA.view === 'main') { fn(); return; } afterMain = fn; location.hash = '#home'; }
   function tabState(){
     var key = 'none';
@@ -1265,7 +1278,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   var stEl = document.getElementById('story'), stI = 0, stFrom = null;
   function stShow(i){
     stI = (i + STORIES.length) % STORIES.length; var d = STORIES[stI];
-    document.getElementById('st-img').src = 'ph/' + (stI + 1) + '.jpg';
+    document.getElementById('st-img').src = 'ph/' + (stI + 1) + '.jpg'; document.querySelector('.st-img').style.setProperty('--st-ph', 'url(ph/' + (stI + 1) + '.jpg)'); document.querySelector('.st-box').scrollTop = 0;
     document.getElementById('st-h').textContent = d[0];
     var b = document.getElementById('st-body'); b.innerHTML = '';
     d[1].forEach(function(t){ var p = document.createElement('p'); p.className = 't'; p.textContent = t; b.appendChild(p); });
