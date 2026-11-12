@@ -250,12 +250,13 @@ html.intro header.top, html.intro .chapter .panel, html.intro .m-sheet, html.int
 @media (max-width:1100px){#rail{display:none}}
 
 /* ---------- band ---------- */
-.band{position:relative;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:40px;overflow:hidden}
+.band{position:relative;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:26px;overflow:hidden}
 .track{display:flex;width:max-content;animation:slide 50s linear infinite}
 .band:hover .track{animation-play-state:paused}
 @keyframes slide{to{transform:translateX(-50%)}}
-.track span{display:inline-flex;align-items:center;gap:48px;padding-right:48px;font-family:var(--serif);font-size:clamp(52px, 7vw, 104px);line-height:1.1;letter-spacing:-.025em;white-space:nowrap}
+.track span{display:inline-flex;align-items:center;gap:36px;padding-right:36px;font-family:var(--serif);font-size:clamp(36px, 4.6vw, 68px);line-height:1.1;letter-spacing:-.025em;white-space:nowrap}
 .track .o{color:transparent;-webkit-text-stroke:1px var(--tuff)}
+.track .mk{display:block;height:.78em;width:auto}
 
 /* ---------- about + factory (stone, strict) ---------- */
 #about{position:relative;background:var(--stone);color:var(--stone-ink);padding-block:112px}
@@ -1038,7 +1039,7 @@ footer .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   var track = document.getElementById('track');
   names.concat(names).forEach(function(n, i){
     var s = document.createElement('span');
-    s.innerHTML = '<b style="font-weight:inherit" class="' + (i % 2 ? 'o' : '') + '"></b><svg width="44" height="28" viewBox="0 0 34 22" fill="none" stroke="#5C2F3C" stroke-width="1.1" stroke-linejoin="round"><path d="M1 21 L12 3 L20 14 L24 9 L33 21"></path></svg>';
+    s.innerHTML = '<b style="font-weight:inherit" class="' + (i % 2 ? 'o' : '') + '"></b><img class="mk" src="logo.png" alt="" width="108" height="110">';
     s.firstChild.textContent = n; track.appendChild(s);
   });
 
